@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Etusivu from './components/Etusivu';
+import axios from 'axios';
 
 import { useEffect, useState} from 'react';
 
@@ -8,55 +9,19 @@ import { useEffect, useState} from 'react';
 function App() {
 
 
-const ravintolat = [
+//const ravintolat = [];
+const [ravintolat, setRavintolat] = useState([])          
 
-  {
-    idRavintola: 1,
-    Nimi:"kyna",
-    Osoite: "asdf",
-    Aukeamisaika: 100,
-    Sulkemisaika: 100,
-    RavintolanTyyppi: "roska",
-    Hintataso: "$$$$$"
-  },
-  {
-    idRavintola: 2,
-    Nimi:"tee",
-    Osoite: "aaaa",
-    Aukeamisaika: 100,
-    Sulkemisaika: 100,
-    RavintolanTyyppi: "roska",
-    Hintataso: "$$$$$"
-  },
-  {
-    idRavintola: 3,
-    Nimi:"kyna",
-    Osoite: "asdf",
-    Aukeamisaika: 100,
-    Sulkemisaika: 100,
-    RavintolanTyyppi: "roska",
-    Hintataso: "$$$$$"
-  },
-  {
-    idRavintola: 4,
-    Nimi:"kyna",
-    Osoite: "asdf",
-    Aukeamisaika: 100,
-    Sulkemisaika: 100,
-    RavintolanTyyppi: "roska",
-    Hintataso: "$$$$$"
-  },
-  {
-    idRavintola: 5,
-    Nimi:"kyna",
-    Osoite: "asdf",
-    Aukeamisaika: 100,
-    Sulkemisaika: 100,
-    RavintolanTyyppi: "roska",
-    Hintataso: "$$$$$"
-  }
+useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
+  const getData = async () => {
+  const results = await axios.get('http://localhost:3000/Ravintolat')
+  console.log(results);
+  setRavintolat(results.data)
+}
+getData();
+
+}, []);
   
-  ];
 
   let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
   
