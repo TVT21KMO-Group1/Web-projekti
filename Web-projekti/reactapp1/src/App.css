@@ -1,0 +1,25 @@
+
+
+.Ravintolalista {
+  border: 1px solid black;
+  margin: 30px;
+  padding: 10p;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+}
+
+
+.Etusivu {
+  border: 1px solid black;
+  margin: 30px;
+  padding: 10p;
+  display: grid;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+  grid-template-columns: 25% 25% 25% 25% ;
+}
