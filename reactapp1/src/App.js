@@ -1,23 +1,71 @@
 import logo from './logo.svg';
 import './App.css';
+import Etusivu from './components/Etusivu';
+
+import { useEffect, useState} from 'react';
+
 
 function App() {
+
+
+const ravintolat = [
+
+  {
+    idRavintola: 1,
+    Nimi:"kyna",
+    Osoite: "asdf",
+    Aukeamisaika: 100,
+    Sulkemisaika: 100,
+    RavintolanTyyppi: "roska",
+    Hintataso: "$$$$$"
+  },
+  {
+    idRavintola: 2,
+    Nimi:"tee",
+    Osoite: "aaaa",
+    Aukeamisaika: 100,
+    Sulkemisaika: 100,
+    RavintolanTyyppi: "roska",
+    Hintataso: "$$$$$"
+  },
+  {
+    idRavintola: 3,
+    Nimi:"kyna",
+    Osoite: "asdf",
+    Aukeamisaika: 100,
+    Sulkemisaika: 100,
+    RavintolanTyyppi: "roska",
+    Hintataso: "$$$$$"
+  },
+  {
+    idRavintola: 4,
+    Nimi:"kyna",
+    Osoite: "asdf",
+    Aukeamisaika: 100,
+    Sulkemisaika: 100,
+    RavintolanTyyppi: "roska",
+    Hintataso: "$$$$$"
+  },
+  {
+    idRavintola: 5,
+    Nimi:"kyna",
+    Osoite: "asdf",
+    Aukeamisaika: 100,
+    Sulkemisaika: 100,
+    RavintolanTyyppi: "roska",
+    Hintataso: "$$$$$"
+  }
+  
+  ];
+
+  let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div> 
+
+      {output}
+      
+
     </div>
   );
 }
