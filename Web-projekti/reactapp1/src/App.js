@@ -2,16 +2,15 @@ import loading from './loading.png'
 import './App.css';
 import Etusivu from './components/Etusivu';
 import axios from 'axios';
+import Loginsivu from './components/Loginsivu'
 
 import { useEffect, useState} from 'react';
 
 
 function App() {
-
-
-//const ravintolat = [];
-const [ravintolat, setRavintolat] = useState([])  
-const [isLoadingRavintolat, setLoadingRavintolat] = useState([true])        
+const [ravintolat, setRavintolat] = useState([]);  
+const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
+const [loginMode, setLoginMode] = useState(false);        
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
   const getData = async () => {
@@ -37,12 +36,22 @@ if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ol
 </div>
 
 }
-  let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
+
+//let ser = 0;
+
+//tahan voisi tehda vaikka switch case rakennelman siita etta mita tuo output sisaltaa
+// vaihtoehtona on se etta if lauseilla rakennetaan outputtiin aina tarvittava tieto
+ 
+ let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
+if (loginMode == true){
+  output = <Loginsivu />;
+}
+
   
   return (
     <div> 
-
-      {output}
+      <button onClick={()=> setLoginMode(!loginMode)}>appjs kirjaudu</button>
+      {output} 
       
 
     </div>

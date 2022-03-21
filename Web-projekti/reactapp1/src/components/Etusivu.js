@@ -2,6 +2,7 @@ import React from 'react'
 import ListaTaulukko from './ListaTaulukko'
 import Hakukentta from './Hakukentta'
 import {useState} from 'react'
+import Loginsivu from './Loginsivu'
 
 
 
@@ -9,7 +10,9 @@ export default function Etusivu(props) {
 
 const { search } = window.location;                     //hakukenttaan liittyvia
 const query = new URLSearchParams(search).get('s');
-const [searchQuery, setSearchQuery] = useState(query || '');    
+const [searchQuery, setSearchQuery] = useState(query || ''); 
+
+const [loginMode, setLoginMode] = useState(false);
 
 
 const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
@@ -26,26 +29,25 @@ const filterProducts = (products2, query) => {                      //filterprod
 const filteredProducts = filterProducts(props.ravintolat, searchQuery);
 
 //const filteredProducts = filterProducts(props.ravintolat, query);      //tämän pitää olla tässä jostainsyystä, ei jaksanu debuggailla
+ if(loginMode == false){
+
  
   return (
-     
-    <div>
-         
-        <button> kirjaudunappu</button>
-        <div></div>
-    <Hakukentta 
+    <div>    
+        <button onClick={()=> setLoginMode(!loginMode)}>etusivu kirjaudunappu</button>
+      <Hakukentta 
               searchQuery={searchQuery}                
               setSearchQuery={setSearchQuery}
-    />
-    <div className="Etusivu"> 
-    
-
+      />
+      <div className="Etusivu"> 
             {filteredProducts.map(r => <ListaTaulukko nimi={r.Nimi}/>)}
-            
-        </div>
-
-
-
+      </div>
     </div>
-  )
+  )}
+
+if(loginMode == true){
+ return(<div>  
+   <Loginsivu/> 
+   </div>) 
+}
 }
