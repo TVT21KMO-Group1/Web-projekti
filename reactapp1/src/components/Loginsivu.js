@@ -22,7 +22,7 @@ export default function LoginSivu() {
     <div>
         <div>Kayttajatunnus <input type="text"  value={ name } onChange={ handleNameChange }/></div>  
         <div>Salasana <input type="text" value={ lname } onChange={ handleSaldoChange } /></div> 
-        <button>Kirjaudu sisaan</button> 
+        <button onClick >Kirjaudu sisaan</button> 
 
         
     </div>
