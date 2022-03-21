@@ -1,14 +1,16 @@
 import React from 'react'
 import ListaTaulukko from './ListaTaulukko'
 import Hakukentta from './Hakukentta'
+import {useState} from 'react'
 
 
 
 export default function Etusivu(props) {
-  const { search } = window.location;
+
+const { search } = window.location;                     //hakukenttaan liittyvia
 const query = new URLSearchParams(search).get('s');
-console.log(props.ravintolat);
-//const [products2, setProducts] = useState([...products])
+const [searchQuery, setSearchQuery] = useState(query || '');    
+
 
 const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
   console.log(products2)
@@ -21,35 +23,20 @@ const filterProducts = (products2, query) => {                      //filterprod
       return productName.includes(query);
   });
 };
+const filteredProducts = filterProducts(props.ravintolat, searchQuery);
 
-const filteredProducts = filterProducts(props.ravintolat, query);      //tämän pitää olla tässä jostainsyystä, ei jaksanu debuggailla
-
-
-
-/*
-const SearchBar = () => (
- <form>
-      <label htmlFor="header-search">
-          <span className="visually-hidden">Etsi tuotteista</span>
-      </label>
-      <input
-          type="text"
-          id="header-search"
-          placeholder="Tuotteen nimi"
-          name="s" 
-      />
-      <button type="submit" >Search</button>
-      </form>
-);*/
-
-
+//const filteredProducts = filterProducts(props.ravintolat, query);      //tämän pitää olla tässä jostainsyystä, ei jaksanu debuggailla
+ 
   return (
      
     <div>
          
         <button> kirjaudunappu</button>
         <div></div>
-    <Hakukentta/>
+    <Hakukentta 
+              searchQuery={searchQuery}                
+              setSearchQuery={setSearchQuery}
+    />
     <div className="Etusivu"> 
     
 
