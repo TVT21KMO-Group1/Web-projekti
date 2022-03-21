@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default function ListaTaulukko(props) {
+  
   return (
+    
     <div className="Ravintolalista">
        
         <h1>{props.nimi}</h1>
