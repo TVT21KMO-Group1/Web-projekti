@@ -7,16 +7,23 @@ const login = require('../models/login_model');
 router.post('/', 
 function(request, response) {
   if(request.body.idKayttaja && request.body.Salasana){
-    const username = request.body.idKayttaja;
-    const password = request.body.Salasana;
-      login.checkPassword(username, function(dbError, dbResult) {
+    const idKayttaja = request.body.idKayttaja;
+    const Salasana = request.body.Salasana;
+    const OnOmistaja = request.body.OnOmistaja;
+      login.checkPassword(idKayttaja, function(dbError, dbResult) {
         if(dbError){
           response.json(dbError);
         }
         else{
           if (dbResult.length > 0) {
-            bcrypt.compare(password,dbResult[0].Salasana, function(err,compareResult) {
+            bcrypt.compare(Salasana,dbResult[0].Salasana, function(err,compareResult) {
               if(compareResult) {
+                  login.checkOnOmistaja(idKayttaja, function(dbError, dbResult) {
+                    console.log(dbResult)
+                    if (dbResult == "1"){
+                      response.send("tottoroo")
+                    }
+                  })
                 console.log("succes");
                 response.send(true);
               }
@@ -41,3 +48,6 @@ function(request, response) {
   }
 }
 );
+
+
+module.exports = router;

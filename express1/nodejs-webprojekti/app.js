@@ -42,6 +42,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var KayttajaRouter = require('./routes/Kayttaja')
 var RavintolatRouter = require('./routes/Ravintolat');
+var loginRouter = require('./routes/login');
 //var app = express();
 
 // view engine setup
@@ -70,6 +71,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Ravintolat', RavintolatRouter);
 app.use('/Kayttaja', KayttajaRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

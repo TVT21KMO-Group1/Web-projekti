@@ -13,7 +13,7 @@ const { search } = window.location;                     //hakukenttaan liittyvia
 const query = new URLSearchParams(search).get('s');
 const [searchQuery, setSearchQuery] = useState(query || ''); 
 
-const [loginMode, setLoginMode] = useState(false);
+//const [loginMode, setLoginMode] = useState(false);
 
 
 const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
@@ -29,13 +29,9 @@ const filterProducts = (products2, query) => {                      //filterprod
 };
 const filteredProducts = filterProducts(props.ravintolat, searchQuery);
 
-//const filteredProducts = filterProducts(props.ravintolat, query);      //tämän pitää olla tässä jostainsyystä, ei jaksanu debuggailla
- if(loginMode == false){
-
- 
   return (
     <div>    
-        <Link to="Loginsivu"><button>etusivu kirjaudunappu</button></Link>    {/*Tassa buttonilla linkki kirjaudusivulle*/}
+          
       <Hakukentta 
               searchQuery={searchQuery}                
               setSearchQuery={setSearchQuery}
@@ -44,11 +40,7 @@ const filteredProducts = filterProducts(props.ravintolat, searchQuery);
             {filteredProducts.map(r => <ListaTaulukko nimi={r.Nimi}/>)}
       </div>
     </div>
-  )}
+  )
 
-if(loginMode == true){
- return(<div>  
-   <Loginsivu/> 
-   </div>) 
-}
+
 }

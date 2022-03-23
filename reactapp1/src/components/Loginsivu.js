@@ -1,18 +1,18 @@
 import React from 'react'
 import {useState} from 'react'
 
-export default function LoginSivu() {
+export default function LoginSivu(props) {
 
-    const [name, setName] = useState("");
-    const [lname, setLname] = useState("");
-    const [address, setAddress] = useState("");
+    const [idKayttaja, setIdKayttaja] = useState("");
+    const [Salasana, setSalasana] = useState("");
 
+    const handleIdKayttajaChange = (event) => {
+        setIdKayttaja(event.target.value);
+    }
     const handleSaldoChange = (event) => {
-        setLname(event.target.value);
+        setSalasana(event.target.value);
     }
-    const handleNameChange = (event) => {
-        setName(event.target.value);
-    }
+    
     
 
 
@@ -20,10 +20,10 @@ export default function LoginSivu() {
 
   return (
     <div>
-        <div>Kayttajatunnus <input type="text"  value={ name } onChange={ handleNameChange }/></div>  
-        <div>Salasana <input type="text" value={ lname } onChange={ handleSaldoChange } /></div> 
-        <button onClick >Kirjaudu sisaan</button> 
-
+        <div>Kayttajatunnus <input type="text"  value={ idKayttaja } onChange={ handleIdKayttajaChange }/></div>  
+        <div>Salasana <input type="text" value={ Salasana } onChange={ handleSaldoChange } /></div> 
+        <button onClick={ () => props.KirjauduSisaanFunktio(idKayttaja, Salasana) }>Kirjaudu sisaan</button> 
+        
         
     </div>
   )
