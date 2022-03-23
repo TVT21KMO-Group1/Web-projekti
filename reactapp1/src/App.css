@@ -1,3 +1,17 @@
+
+.MenuPalkki {
+  display: flex;
+ 
+}
+.MenuPalkki > *{
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+
+
 .App {
   text-align: center;
 }
@@ -35,6 +49,7 @@
     transform: rotate(360deg);
   }
 }
+
 
 .Ravintolalista {
   border: 1px solid black;

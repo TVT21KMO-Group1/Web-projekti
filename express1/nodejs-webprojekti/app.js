@@ -7,18 +7,42 @@ var flash = require('express-flash');
 var session = require('express-session');
 var mysql = require('mysql');
 var connection  = require('./lib/db');
-
-
+const helmet = require('helmet');
 const cors = require('cors');
+//var app = express();
 const port = 3000
 const app           = express(),  
       DEFAULT_PORT  = 3000
+
+app.use(helmet());
+const dotenv = require('dotenv');
+dotenv.config();
+
+
+
+/* //Jotain hamaraa tassa hommelissa, en tieda mita tekee
+const basicAuth = require('express-basic-auth');
+app.use(basicAuth( { authorizer: myAuthorizer, authorizeAsync:true, } ))
+
+function myAuthorizer(username, password, cb){
+  if(username===process.env.authUser && password ===process.env.authPass){
+      return cb(null, true);
+  }
+  else{
+      return cb(null, false);
+  }
+}
+
+*/
+
 
 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var KayttajaRouter = require('./routes/Kayttaja')
 var RavintolatRouter = require('./routes/Ravintolat');
+var loginRouter = require('./routes/login');
 //var app = express();
 
 // view engine setup
@@ -46,6 +70,8 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/Ravintolat', RavintolatRouter);
+app.use('/Kayttaja', KayttajaRouter);
+app.use('/login', loginRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

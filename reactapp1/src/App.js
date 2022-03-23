@@ -1,25 +1,32 @@
 import loading from './loading.png'
 import './App.css';
 import Etusivu from './components/Etusivu';
+import Kirjauduttu from './components/Kirjauduttu'
 import axios from 'axios';
 import Loginsivu from './components/Loginsivu'
-
+import {Link } from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom'
+import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState} from 'react';
+
 
 
 function App() {
 const [ravintolat, setRavintolat] = useState([]);  
 const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
-const [loginMode, setLoginMode] = useState(false);        
+const [KirjautunutKayttaja, setKirjautunutKayttaja] = useState([]);
+const [onOmistaja, setOnOmistaja] = useState([false]);
+const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
+
+        
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
   const getData = async () => {
-  /*const results = await */axios.get('http://localhost:3000/Ravintolat').then(response => {
+  axios.get('http://localhost:3000/Ravintolat').then(response => {
     setRavintolat(response.data);
     setLoadingRavintolat(false);                //Tanne tehty wait funktio
   })
-  //console.log(results);
-  //setRavintolat(results.data)                 //tama vanhassa kaytossa
 }
 getData();
 
@@ -34,27 +41,54 @@ if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ol
     </p>
   </header>
 </div>
-
 }
 
-//let ser = 0;
 
-//tahan voisi tehda vaikka switch case rakennelman siita etta mita tuo output sisaltaa
-// vaihtoehtona on se etta if lauseilla rakennetaan outputtiin aina tarvittava tieto
- 
- let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
-if (loginMode == true){
-  output = <Loginsivu />;
+
+const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
+
+   axios.post('http://localhost:3000/login/', {
+    "idKayttaja": idKayttaja,
+    "Salasana": Salasana
+  }).then(response => {
+    if (response.data == true){
+      setKirjautunutKayttaja(idKayttaja);
+      setOnOmistaja(false);
+      setLoadingKirjaudu(false);
+      
+    } else if (response.data == "OnOmistaja"){
+      setKirjautunutKayttaja(idKayttaja);
+      setOnOmistaja(true);
+      setLoadingKirjaudu(false);
+      
+      
+    }
+    else {
+      console.log("yritappa uuelleen")
+      setLoadingKirjaudu(false);
+    }
+    }
+  )
+  
+
 }
-
   
   return (
+    <BrowserRouter> 
     <div> 
-      <button onClick={()=> setLoginMode(!loginMode)}>appjs kirjaudu</button>
-      {output} 
-      
+      <div className='MenuPalkki'>
+        <Link to='/'><div>Etusivulle</div></Link>
+        <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
+      </div>
+      <Routes>
+        <Route path = "/" element= { <Etusivu ravintolat={ravintolat}/> } />
+        <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio}/>}/>
+        <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
+
+      </Routes>
 
     </div>
+    </BrowserRouter>
   );
 }
 
