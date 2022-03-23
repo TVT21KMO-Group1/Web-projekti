@@ -1,5 +1,7 @@
 import React from 'react'
 import {useState} from 'react'
+import {Link } from 'react-router-dom'
+
 
 export default function LoginSivu(props) {
 
@@ -22,7 +24,7 @@ export default function LoginSivu(props) {
     <div>
         <div>Kayttajatunnus <input type="text"  value={ idKayttaja } onChange={ handleIdKayttajaChange }/></div>  
         <div>Salasana <input type="text" value={ Salasana } onChange={ handleSaldoChange } /></div> 
-        <button onClick={ () => props.KirjauduSisaanFunktio(idKayttaja, Salasana) }>Kirjaudu sisaan</button> 
+        <Link to = '/Kirjauduttu'> <button onClick={ () => props.KirjauduSisaanFunktio(idKayttaja, Salasana)  }>Kirjaudu sisaan</button></Link>
         
         
     </div>

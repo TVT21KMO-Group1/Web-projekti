@@ -19,13 +19,14 @@ function(request, response) {
             bcrypt.compare(Salasana,dbResult[0].Salasana, function(err,compareResult) {
               if(compareResult) {
                   login.checkOnOmistaja(idKayttaja, function(dbError, dbResult) {
-                    console.log(dbResult)
-                    if (dbResult == "1"){
-                      response.send("tottoroo")
-                    }
+                    if (dbResult[0].OnOmistaja == 1){
+                      response.send("OnOmistaja")
+                    } else {
+                      console.log("succes");
+                      response.send(true);
+                      }
                   })
-                console.log("succes");
-                response.send(true);
+                
               }
               else {
                   console.log("wrong password");
