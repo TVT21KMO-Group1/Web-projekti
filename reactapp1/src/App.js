@@ -4,6 +4,8 @@ import Etusivu from './components/Etusivu';
 import axios from 'axios';
 import Loginsivu from './components/Loginsivu'
 
+import {BrowserRouter, Routes, Route } from 'react-router-dom'
+
 
 import { useEffect, useState} from 'react';
 
@@ -11,7 +13,7 @@ import { useEffect, useState} from 'react';
 function App() {
 const [ravintolat, setRavintolat] = useState([]);  
 const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
-const [loginMode, setLoginMode] = useState(false);        
+//const [loginMode, setLoginMode] = useState(false);        
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
   const getData = async () => {
@@ -39,23 +41,34 @@ if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ol
 }
 
 //let ser = 0;
-
+//<button onClick={()=> setLoginMode(!loginMode)}>appjs kirjaudu</button>
+//      {output} 
 //tahan voisi tehda vaikka switch case rakennelman siita etta mita tuo output sisaltaa
 // vaihtoehtona on se etta if lauseilla rakennetaan outputtiin aina tarvittava tieto
  
- let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
-if (loginMode == true){
-  output = <Loginsivu />;
-}
+// let output = <Etusivu ravintolat={ravintolat} /> //nää liittyy outputtiin
+//if (loginMode == true){
+//  output = <Loginsivu />;
+//}
 
   
   return (
+    <BrowserRouter> 
     <div> 
-      <button onClick={()=> setLoginMode(!loginMode)}>appjs kirjaudu</button>
-      {output} 
+      <Routes>
+        <Route path = "/" element= { <Etusivu ravintolat={ravintolat}/> } />
+        <Route path = "Loginsivu" element = { <Loginsivu/>}/>
+
+
+      </Routes>
+
+
+
+      
       
 
     </div>
+    </BrowserRouter>
   );
 }
 

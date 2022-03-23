@@ -3,6 +3,7 @@ import ListaTaulukko from './ListaTaulukko'
 import Hakukentta from './Hakukentta'
 import {useState} from 'react'
 import Loginsivu from './Loginsivu'
+import {Link } from 'react-router-dom'
 
 
 
@@ -34,7 +35,7 @@ const filteredProducts = filterProducts(props.ravintolat, searchQuery);
  
   return (
     <div>    
-        <button onClick={()=> setLoginMode(!loginMode)}>etusivu kirjaudunappu</button>
+        <Link to="Loginsivu"><button>etusivu kirjaudunappu</button></Link>    {/*Tassa buttonilla linkki kirjaudusivulle*/}
       <Hakukentta 
               searchQuery={searchQuery}                
               setSearchQuery={setSearchQuery}
