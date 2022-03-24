@@ -4,6 +4,7 @@ import Etusivu from './components/Etusivu';
 import Kirjauduttu from './components/Kirjauduttu'
 import axios from 'axios';
 import Loginsivu from './components/Loginsivu'
+import Ruokalista from './components/Ruokalista'
 import {Link } from 'react-router-dom'
 import {useNavigate} from 'react-router-dom';
 import { Navigate } from 'react-router-dom'
@@ -79,12 +80,13 @@ const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
       <div className='MenuPalkki'>
         <Link to='/'><div>Etusivulle</div></Link>
         <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
+        <Link to ='Ruokalista'><div>Ruokalista</div></Link>
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat}/> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
-
+        <Route path = "Ruokalista" element = { <Ruokalista /> } />
       </Routes>
 
     </div>
