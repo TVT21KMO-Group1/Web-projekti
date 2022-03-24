@@ -72,6 +72,30 @@ const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
   
 
 }
+
+const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOmistaja) => {
+
+  axios.post('http://localhost:3000/kayttaja/', {
+   "Kayttajatunnus": Kayttajatunnus,
+   "Nimi": Nimi,
+   "Osoite": Osoite,
+   "PuhNro": PuhNro,
+   "Salasana": Salasana,
+   "Onomistaja": OnOmistaja
+ }).then(response => {
+   if (response.data == true){
+     
+     
+   }
+   else {
+     console.log("yritappa uuelleen")
+    
+   }
+   }
+ )
+ 
+
+}
   
   return (
     <BrowserRouter> 
