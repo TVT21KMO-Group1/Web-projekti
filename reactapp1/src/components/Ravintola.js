@@ -1,10 +1,17 @@
 import React from 'react'
 import loading from '../loading.png'
 import Ruokalista from './Ruokalista'
+import {useEffect, useState} from 'react';
+import axios from 'axios';
+import Tuotekategoriat from './Tuotekategoriat'
+import {Link } from 'react-router-dom'
+
+
+
 
 export default function Ravintola (props) {
-    
-     if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
+        
+    if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
         return <div className="App">            
         <header className="App-header">
           <img src={loading} className="App-logo" alt="loading" />
@@ -15,27 +22,6 @@ export default function Ravintola (props) {
       </div>
       }
 
-/*
-
-
-       /// tassaa  ajatuksena kayttaa tata samaa hakukentta pohjaa siihen etta tuotekategoria napeista painamalla haetaan vain tuotteet siina kategoriassa
-      const { search } = window.location;                     //hakukenttaan liittyvia
-      const query = new URLSearchParams(search).get('s');
-      const [searchQuery, setSearchQuery] = useState(query || '');    
-      
-      const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
-        if (!query) {                                                     //tulostaa filterproductsin mutta jos haku tyhjä, sisältää kaikki tuotteet
-            return products2;
-        }
-        return products2.filter((product) => {
-          console.log(product);
-            const productName = product.Tuotekategoria.toLowerCase(); //Tama pitaa viela selvittaa koska ruoka taulukossa ei ole kategoriaa suoraan
-            return productName.includes(query);                 //taytyy varmaaan tehda rajajapinta joka hakee ravintolaidlla ja tuotekategorialla
-        });
-      };
-      const filteredProducts = filterProducts(props.ravintolat, searchQuery);
-
-*/
 
   return (
     <div>
@@ -48,12 +34,17 @@ export default function Ravintola (props) {
             <div> Ravintolan tyyppi {props.RavintolanData[0].RavintolanTyyppi} </div>
         </div>
         <div className="RavintolaSivu"> Ravintolan kuva tahan </div>
-    
-   
-    </div>   
-    Ruokalista
-  
     </div>
+    
+    <Link to = '/Kirjauduttu'> <div className="RavintolaSivuIso"> {props.Tuotekategoriat.map(r => <Tuotekategoriat Tuotekategoria={r.Tuotekategoria} />)}
+     </div></Link>{/*tassa viela linkki rikki, eli tahan pitaa keksia toimiva linkki jotta hakee databasesta ruuat oikein*/ }
+
+   
+        
+    </div> 
+     
+ 
+    
 
   )
 }
