@@ -3,8 +3,8 @@ var mysql = require('mysql');
 /*var connection = mysql.createPool(process.env.MYSQL);*/
 var connection = mysql.createConnection({
 	host:'localhost',
-	user:'newAdmin',
-	password:'newPass',
+	user:'root',
+	password:'Aurinko!2021',
 	database:'webdatabase'
 });
 connection.connect(function(error){
