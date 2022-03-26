@@ -7,7 +7,9 @@ const Ravintolat = {
  // },
   getAll: function(callback) {
     return db.query('select * from Ravintola', callback);
-   
+  },
+  getById: function(id, callback) {         
+    return db.query('select * from Ravintola  where idRavintola=?', [id], callback);         // tasta tulee Ravintolan tiedot idlla 
   },
 };
 module.exports = Ravintolat;

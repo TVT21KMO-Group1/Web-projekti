@@ -10,7 +10,8 @@ import {useNavigate} from 'react-router-dom';
 import { Navigate } from 'react-router-dom'
 import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState} from 'react';
-
+import KirjauduUlos from './components/KirjauduUlos';
+import Ravintola from './components/Ravintola'
 
 
 function App() {
@@ -19,7 +20,9 @@ const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
 const [KirjautunutKayttaja, setKirjautunutKayttaja] = useState([]);
 const [onOmistaja, setOnOmistaja] = useState([false]);
 const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
-
+const [isLoadingRuoka, setLoadingRuoka] = useState([false]);
+const [ValittuRavintola, setValittuRavintola] = useState([]);
+const [RavintolanData, setRavintolanData] = useState([]);
         
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
@@ -33,6 +36,7 @@ getData();
 
 }, []);
   
+                                          // taman voisi siirtaa omaan komponenttiin
 if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
   return <div className="App">
   <header className="App-header">
@@ -74,6 +78,20 @@ const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
 
 }
 
+const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden  ravintolan datan idlla
+  setValittuRavintola(idRavintola);
+  setLoadingRuoka(true);
+  const getData = async () => {
+  axios.get('http://localhost:3000/Ravintolat/'+idRavintola+'').then(response => {
+      setRavintolanData(response.data);
+      setLoadingRuoka(false);
+    })
+  }
+  getData();
+    
+}
+
+
 const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOmistaja) => {
 
   axios.post('http://localhost:3000/kayttaja/', {
@@ -107,10 +125,13 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
         <Link to ='Ruokalista'><div>Ruokalista</div></Link>
       </div>
       <Routes>
-        <Route path = "/" element= { <Etusivu ravintolat={ravintolat}/> } />
+        <Route path = "/" element= { <Etusivu ravintolat={ravintolat}  ValitseRavintolaFuktio={ValitseRavintolaFuktio}/> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "Ruokalista" element = { <Ruokalista /> } />
+        <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
+        <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} />}/>
+
       </Routes>
 
     </div>
