@@ -74,7 +74,7 @@ app.use('/users', usersRouter);
 app.use('/Ravintolat', RavintolatRouter);
 app.use('/Kayttaja', KayttajaRouter);
 app.use('/login', loginRouter);
-app.use('/ruokalista', ruokaRouter);
+app.use('/ruoka', ruokaRouter);
 app.use('/tuotekategoria', tuotekategoriaRouter);
 
 // catch 404 and forward to error handler

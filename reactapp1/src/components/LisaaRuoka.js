@@ -10,11 +10,11 @@ export default function Ruokalista() {
     const [kuva, setKuva] = useState("");
 
     const lisaaRuoka = async(ruoka) => {
-        await axios.post('http://localhost:3000/ruokalista', {
+        await axios.post('http://localhost:3000/ruoka', {
           tuote: ruoka.tuote,
           kuvaus: ruoka.kuvaus,
           hinta: ruoka.hinta,
-          kategoria: ruoka.kategoria
+          tuotekategoria_idtuotekategoria: ruoka.kategoria
         })
       }
 
@@ -27,7 +27,7 @@ export default function Ruokalista() {
                 <input type="text" placeholder="Kuvaus" value={ kuvaus } onInput={e => setKuvaus(e.target.value)}/>
             </div>
             <div className="flex column">Hinta
-                <input type="text" placeholder="Hinta" value={ hinta } onInput={e => setHinta(e.target.value)}/>
+                <input type="number" placeholder="Hinta" value={ hinta } onInput={e => setHinta(e.target.value)}/>
             </div>
             <div className="flex column">Kategoria
                 <input type="text" placeholder="Kategoria" value={ kategoria } onInput={e => setKategoria(e.target.value)}/>

@@ -4,7 +4,7 @@ import Etusivu from './components/Etusivu';
 import Kirjauduttu from './components/Kirjauduttu'
 import axios from 'axios';
 import Loginsivu from './components/Loginsivu'
-import Ruokalista from './components/Ruokalista'
+import LisaaRuoka from './components/LisaaRuoka'
 import {Link } from 'react-router-dom'
 import {useNavigate} from 'react-router-dom';
 import { Navigate } from 'react-router-dom'
@@ -126,13 +126,13 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
       <div className='MenuPalkki'>
         <Link to='/'><div>Etusivulle</div></Link>
         <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
-        <Link to ='Ruokalista'><div>Ruokalista</div></Link>
+        <Link to ='LisaaRuoka'><div>Lisää ruoka</div></Link>    {/* tässä vain testinä, siirrettävä omistajan ravintolanäkymään */}
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat}  ValitseRavintolaFuktio={ValitseRavintolaFuktio}/> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
-        <Route path = "Ruokalista" element = { <Ruokalista /> } />
+        <Route path = "LisaaRuoka" element = { <LisaaRuoka /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
 

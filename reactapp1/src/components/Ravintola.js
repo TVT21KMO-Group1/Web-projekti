@@ -1,6 +1,6 @@
 import React from 'react'
 import loading from '../loading.png'
-import Ruokalista from './Ruokalista'
+import LisaaRuoka from './LisaaRuoka'
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 import Tuotekategoriat from './Tuotekategoriat'
