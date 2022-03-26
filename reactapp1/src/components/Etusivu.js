@@ -8,7 +8,7 @@ import {Link } from 'react-router-dom'
 
 
 export default function Etusivu(props) {
-
+  console.log(props)
 const { search } = window.location;                     //hakukenttaan liittyvia
 const query = new URLSearchParams(search).get('s');
 const [searchQuery, setSearchQuery] = useState(query || ''); 
@@ -17,12 +17,12 @@ const [searchQuery, setSearchQuery] = useState(query || '');
 
 
 const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
-  console.log(products2)
+  //console.log(products2)
   if (!query) {                                                     //tulostaa filterproductsin mutta jos haku tyhjä, sisältää kaikki tuotteet
       return products2;
   }
   return products2.filter((product) => {
-    console.log(product);
+    //console.log(product);
       const productName = product.Nimi.toLowerCase();
       return productName.includes(query);
   });
@@ -37,7 +37,7 @@ const filteredProducts = filterProducts(props.ravintolat, searchQuery);
               setSearchQuery={setSearchQuery}
       />
       <div className="Etusivu"> 
-            {filteredProducts.map(r => <ListaTaulukko nimi={r.Nimi}/>)}
+          {filteredProducts.map(r => <ListaTaulukko ValitseRavintolaFuktio={props.ValitseRavintolaFuktio} nimi={r.Nimi} idRavintola={r.idRavintola} />)}
       </div>
     </div>
   )
