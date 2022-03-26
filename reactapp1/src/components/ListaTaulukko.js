@@ -6,25 +6,6 @@ import axios from 'axios';
 
 export default function ListaTaulukko(props) {
   
-  /*
-  const [isLoadingRuoka, setLoadingRuoka] = useState([false]);
-const [ValittuRavintola, setValittuRavintola] = useState([]);
-const [RavintolanData, setRavintolanData] = useState([]);
-
-  const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden  ravintolan datan idlla
-    setValittuRavintola(idRavintola);
-    setLoadingRuoka(true);
-    const getData = async () => {
-    axios.get('http://localhost:3000/Ravintolat/'+idRavintola+'').then(response => {
-        setRavintolanData(response.data);
-        setLoadingRuoka(false);
-      })
-    }
-    getData();
-      
-  }
-  */
-
   return (
     
     <div className="Ravintolalista">

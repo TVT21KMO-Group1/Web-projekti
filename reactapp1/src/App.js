@@ -23,10 +23,11 @@ const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
 const [isLoadingRuoka, setLoadingRuoka] = useState([false]);
 const [ValittuRavintola, setValittuRavintola] = useState([]);
 const [RavintolanData, setRavintolanData] = useState([]);
+const [Tuotekategoriat, setTuotekategoriat] = useState([]);
         
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
-  const getData = async () => {
+  const getData = async () => { // tan voisi nimeta uudelleen
   axios.get('http://localhost:3000/Ravintolat').then(response => {
     setRavintolat(response.data);
     setLoadingRavintolat(false);                //Tanne tehty wait funktio
@@ -35,7 +36,7 @@ useEffect(() => {                                                //Tahan tulee h
 getData();
 
 }, []);
-  
+ 
                                           // taman voisi siirtaa omaan komponenttiin
 if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
   return <div className="App">
@@ -65,30 +66,33 @@ const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
       setKirjautunutKayttaja(idKayttaja);
       setOnOmistaja(true);
       setLoadingKirjaudu(false);
-      
-      
     }
     else {
       console.log("yritappa uuelleen")
       setLoadingKirjaudu(false);
     }
-    }
-  )
-  
-
+    })
 }
 
 const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden  ravintolan datan idlla
   setValittuRavintola(idRavintola);
   setLoadingRuoka(true);
-  const getData = async () => {
+  const haeRavintolanData = async () => {
   axios.get('http://localhost:3000/Ravintolat/'+idRavintola+'').then(response => {
       setRavintolanData(response.data);
-      setLoadingRuoka(false);
+      //setLoadingRuoka(false);
     })
   }
-  getData();
-    
+  const haeKategoriat = async () => {
+    axios.get('http://localhost:3000/Tuotekategoria/'+ValittuRavintola+'/').then(response => {
+      setTuotekategoriat(response.data);
+      setLoadingRuoka(false);                //Tanne tehty wait funktio
+      console.log(response.data)
+    })
+  }
+
+  haeRavintolanData();
+    haeKategoriat()
 }
 
 
@@ -130,7 +134,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "Ruokalista" element = { <Ruokalista /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
-        <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} />}/>
+        <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
 
       </Routes>
 
