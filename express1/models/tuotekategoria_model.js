@@ -11,5 +11,9 @@ const tuotekategoria = {
   getById: function(Ravintola_idRavintola, callback) {         
     return db.query('select Tuotekategoria from Tuotekategoria  where Ravintola_idRavintola=? ', [Ravintola_idRavintola], callback);         // tasta tulee Ravintolan tiedot idlla 
   },
+  add: function(tuotekategoria, callback) {
+    return db.query('insert into Tuotekategoria (Tuotekategoria, Ravintola_idRavintola) values(?,?)',
+    [tuotekategoria.tuotekategoria, tuotekategoria.Ravintola_idRavintola], callback);
+  },
 };
 module.exports = tuotekategoria;

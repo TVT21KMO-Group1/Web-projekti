@@ -25,7 +25,17 @@ router.get('/', (req, res) => {                                 //Tämä tötter
             res.send(dbResult);
         }
     })
- })
+ });
 
+ router.post('/',       // tämä lisää tuotekategorian ravintolalle
+  function(req, res) {
+    tuotekategoria.add(req.body, function(err, count) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.sendStatus(201); 
+      }
+    });
+});
 
  module.exports = router
