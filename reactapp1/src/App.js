@@ -97,27 +97,25 @@ const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden
 }
 
 
-const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
+const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
 
   axios.post('http://localhost:3000/kayttaja/', {
-   "Kayttajatunnus": Kayttajatunnus,
+ //  "Kayttajatunnus": Kayttajatunnus,
    "Nimi": Nimi,
    "Osoite": Osoite,
    "PuhNro": PuhNro,
    "Salasana": Salasana2,
-   "Onomistaja": OnOmistaja
+   "OnOmistaja": OnOmistaja
  }).then(response => {
-   if (response.data == true){
-    console.log("käyttäjä lisätty")
-     
-   }
-   else {
-     console.log("yritappa uuelleen")
+    if (response.data === "1048")
+     console.log("Osa tiedoista puuttuu")
+    else{
+      console.log("käyttäjä luotu")
+    }
     
    }
-   }
  )
- luoKayttajafunktio={luoKayttajafunktio}
+ 
 
 }
   
@@ -132,12 +130,13 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana2, OnO
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat}  ValitseRavintolaFuktio={ValitseRavintolaFuktio}/> } />
-        <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio}/>}/>
+        <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "LisaaRuoka" element = { <LisaaRuoka /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
+      
       </Routes>
 
     </div>
