@@ -97,18 +97,18 @@ const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden
 }
 
 
-const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOmistaja) => {
+const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
 
   axios.post('http://localhost:3000/kayttaja/', {
    "Kayttajatunnus": Kayttajatunnus,
    "Nimi": Nimi,
    "Osoite": Osoite,
    "PuhNro": PuhNro,
-   "Salasana": Salasana,
+   "Salasana": Salasana2,
    "Onomistaja": OnOmistaja
  }).then(response => {
    if (response.data == true){
-     
+    console.log("käyttäjä lisätty")
      
    }
    else {
@@ -117,7 +117,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
    }
    }
  )
- 
+ luoKayttajafunktio={luoKayttajafunktio}
 
 }
   
