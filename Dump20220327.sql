@@ -32,11 +32,13 @@ CREATE TABLE `kayttaja` (
   `Salasana` varchar(255) NOT NULL,
   `OnOmistaja` int DEFAULT NULL,
   `Ravintola_idRavintola` int DEFAULT NULL,
+  `KayttajaTunnus` varchar(45) NOT NULL,
   PRIMARY KEY (`idKayttaja`),
   UNIQUE KEY `idKayttajat_UNIQUE` (`idKayttaja`),
+  UNIQUE KEY `KayttajaTunnus_UNIQUE` (`KayttajaTunnus`),
   KEY `fk_Kayttajat_Ravintola_idx` (`Ravintola_idRavintola`),
   CONSTRAINT `fk_Kayttajat_Ravintola` FOREIGN KEY (`Ravintola_idRavintola`) REFERENCES `ravintola` (`idRavintola`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,6 +47,7 @@ CREATE TABLE `kayttaja` (
 
 LOCK TABLES `kayttaja` WRITE;
 /*!40000 ALTER TABLE `kayttaja` DISABLE KEYS */;
+INSERT INTO `kayttaja` VALUES (1,'tie 8','040',12345,'$2a$10$9D8iVMprf6RAJCwBl1zeEORItYdQYxEp1EVoGE5mA0t6E55sptlcW',NULL,NULL,'Pentti'),(2,'Seppo','tei',90,'$2a$10$Tev5MKrudI2dqV6wiq/g7OlLs33znXxFK/liYyELerxgt81LW.cGG',1,NULL,'Peaaaaa'),(3,'Pentti','tie 8',40,'$2a$10$xPzKHR0BnzaYDwltqw4.yOgdGqu2rWKImHqP5yQ8uGtZBaYdmg6IS',0,NULL,'Pena2'),(4,'Seppo','tei',90,'$2a$10$grr.2RO7Y/VUxRTJA5COMu872hwCXW99XfOX9xXKqEryC/mh25fP.',1,NULL,'Sepi');
 /*!40000 ALTER TABLE `kayttaja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +68,7 @@ CREATE TABLE `ravintola` (
   `Hintataso` varchar(45) NOT NULL,
   PRIMARY KEY (`idRavintola`),
   UNIQUE KEY `idRavintola_UNIQUE` (`idRavintola`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +77,7 @@ CREATE TABLE `ravintola` (
 
 LOCK TABLES `ravintola` WRITE;
 /*!40000 ALTER TABLE `ravintola` DISABLE KEYS */;
+INSERT INTO `ravintola` VALUES (1,'PizzaRavintoal','Pizzatie8',8,22,'PizzaTyyppi','EE'),(2,'KebabRavintoa','Kebabtie8',12,13,'Kebabtyyppi','E');
 /*!40000 ALTER TABLE `ravintola` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +98,7 @@ CREATE TABLE `ruoka` (
   UNIQUE KEY `idRuokalista_UNIQUE` (`idRuoka`),
   KEY `fk_Ruoka_Tuotekategoria1_idx` (`Tuotekategoria_idTuotekategoria`),
   CONSTRAINT `fk_Ruoka_Tuotekategoria1` FOREIGN KEY (`Tuotekategoria_idTuotekategoria`) REFERENCES `tuotekategoria` (`idTuotekategoria`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,6 +107,7 @@ CREATE TABLE `ruoka` (
 
 LOCK TABLES `ruoka` WRITE;
 /*!40000 ALTER TABLE `ruoka` DISABLE KEYS */;
+INSERT INTO `ruoka` VALUES (1,'asdf','asdf',11,1),(2,'Pizza','Ananas',12,1);
 /*!40000 ALTER TABLE `ruoka` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +181,7 @@ CREATE TABLE `tuotekategoria` (
   PRIMARY KEY (`idTuotekategoria`),
   KEY `fk_Tuotekategoria_Ravintola1_idx` (`Ravintola_idRavintola`),
   CONSTRAINT `fk_Tuotekategoria_Ravintola1` FOREIGN KEY (`Ravintola_idRavintola`) REFERENCES `ravintola` (`idRavintola`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,6 +190,7 @@ CREATE TABLE `tuotekategoria` (
 
 LOCK TABLES `tuotekategoria` WRITE;
 /*!40000 ALTER TABLE `tuotekategoria` DISABLE KEYS */;
+INSERT INTO `tuotekategoria` VALUES (1,'Pikaruoka',1),(2,'Tosipikaruoka',2);
 /*!40000 ALTER TABLE `tuotekategoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,4 +207,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-17 16:36:20
+-- Dump completed on 2022-03-27 15:04:59
