@@ -96,18 +96,18 @@ const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden
 }
 
 
-const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOmistaja) => {
+const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
 
   axios.post('http://localhost:3000/kayttaja/', {
    "Kayttajatunnus": Kayttajatunnus,
    "Nimi": Nimi,
    "Osoite": Osoite,
    "PuhNro": PuhNro,
-   "Salasana": Salasana,
+   "Salasana": Salasana2,
    "Onomistaja": OnOmistaja
  }).then(response => {
    if (response.data == true){
-     
+    console.log("käyttäjä lisätty")
      
    }
    else {
@@ -116,7 +116,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
    }
    }
  )
- 
+ luoKayttajafunktio={luoKayttajafunktio}
 
 }
   
@@ -135,7 +135,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
         <Route path = "LisaaRuoka" element = { <LisaaRuoka /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
-
+    
       </Routes>
 
     </div>
