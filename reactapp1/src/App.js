@@ -12,6 +12,7 @@ import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState} from 'react';
 import KirjauduUlos from './components/KirjauduUlos';
 import Ravintola from './components/Ravintola'
+import LuoRavintola from './components/LuoRavintola';
 
 
 function App() {
@@ -127,6 +128,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
         <Link to='/'><div>Etusivulle</div></Link>
         <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
         <Link to ='LisaaRuoka'><div>Lisää ruoka</div></Link>    {/* tässä vain testinä, siirrettävä omistajan ravintolanäkymään */}
+        <Link to ='LuoRavintola'><div>Luo ravintola</div></Link>
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat}  ValitseRavintolaFuktio={ValitseRavintolaFuktio}/> } />
@@ -135,7 +137,7 @@ const luoKayttajafunktio = (Kayttajatunnus, Nimi, Osoite, PuhNro, Salasana, OnOm
         <Route path = "LisaaRuoka" element = { <LisaaRuoka /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
-
+        <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
       </Routes>
 
     </div>
