@@ -13,7 +13,7 @@ router.post('/', function(req, res) {
   });
 });
 
-router.get('/all/:idRavintola', function(req, res) {    // hakee tietyn ravintolan kaikki tuotteet
+router.get('/:idRavintola', function(req, res) {    // hakee tietyn ravintolan kaikki tuotteet
   ruoka.getAllInRestaurant(req.params.idRavintola, function(err, dbResult) {  // ruoka_model sisältää tämän toteutuksen
     if (err) {
         res.json(err);
