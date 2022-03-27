@@ -12,7 +12,7 @@ export default function Kirjauduttu(props) {
     <div> 
     <div> Olet kirjautunut sisaan kayttajatunnuksella  </div>
     <div> {KT}
-    
+    <div>Pääset selaamaan ravintoloita ylhäältä painamalla Etusivulle </div>
     
     </div>
     </div>

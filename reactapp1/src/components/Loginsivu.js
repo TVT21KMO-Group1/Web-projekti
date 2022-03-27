@@ -5,23 +5,25 @@ import {Link } from 'react-router-dom'
 
 export default function LoginSivu(props) {
 
-    const [idKayttaja, setIdKayttaja] = useState("");
+    const [KayttajaTunnus, setIdKayttaja] = useState("");
     const [Salasana, setSalasana] = useState("");
 
-    const handleIdKayttajaChange = (event) => {
+    const handleKayttajaTunnusChange = (event) => {
         setIdKayttaja(event.target.value);
     }
     const handleSaldoChange = (event) => {
         setSalasana(event.target.value);
     }
-
+    const [KayttajaTunnus2, setKayttajaTunnus] = useState("");
     const [Nimi, setNimi] = useState("");
     const [Salasana2, setSalasana2] = useState("");
     const [Osoite, setOsoite] = useState("");
     const [PuhNro, setPuhNro] = useState("");
     const [onOmistaja, setOnOmistaja] = useState("");
 
-
+    const handleKayttajaTunnusChange2 = (event) => {
+      setKayttajaTunnus(event.target.value);
+    }
     const handleNimilisaa = (event) => {
       setNimi(event.target.value);
     }
@@ -47,18 +49,18 @@ export default function LoginSivu(props) {
           <h1>Kirjaudu sisään</h1>
 
           <div>Kayttajatunnus </div> 
-          <div> <input type="text"  value={ idKayttaja } onChange={ handleIdKayttajaChange }/></div>  
+          <div> <input type="text"  value={ KayttajaTunnus } onChange={ handleKayttajaTunnusChange }/></div>  
 
           <div>Salasana </div> 
           <div> <input type="text" value={ Salasana } onChange={ handleSaldoChange } /></div> 
-          <Link to = '/Kirjauduttu'> <button onClick={ () => props.KirjauduSisaanFunktio(idKayttaja, Salasana)  }>Kirjaudu sisaan</button></Link>
+          <Link to = '/Kirjauduttu'> <button onClick={ () => props.KirjauduSisaanFunktio(KayttajaTunnus, Salasana)  }>Kirjaudu sisaan</button></Link>
           
       </div>
       <div className="LoginSivu">
           <h1> Luo käyttäjätunnus</h1>
 
-      {/*   <div> Kayttajatunnus </div> 
-        <div> <input type="text" /></div>    */}
+       <div> Kayttajatunnus </div> 
+        <div> <input type="text" value={KayttajaTunnus2 } onChange={ handleKayttajaTunnusChange2 }/></div>    
 
           <div> Nimi </div> 
           <div> <input type="text" value={Nimi} onChange={handleNimilisaa} /></div> 
@@ -75,7 +77,7 @@ export default function LoginSivu(props) {
           <div> Oletko omistaja </div> 
           <div> <input type="text" value={onOmistaja} onChange={handleSetOnOmistaja}/></div>
 
-          <button onClick={ () => props.luoKayttajafunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja) }>Luo Tunnus</button>
+          <button onClick={ () => props.luoKayttajafunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja, KayttajaTunnus2) }>Luo Tunnus</button>
 
       </div>
 

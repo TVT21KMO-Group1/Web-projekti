@@ -8,8 +8,8 @@ const Kayttaja={
   //},
   add: function(Kayttaja, callback) {
     bcrypt.hash(Kayttaja.Salasana, saltRounds, function(err, hash) {
-      return db.query('insert into Kayttaja (Nimi, Osoite, PuhNro, Salasana, OnOmistaja) values(?,?,?,?,?)',       // tassaa yritetty kaikkea kummallista
-      [Kayttaja.Nimi, Kayttaja.Osoite, Kayttaja.PuhNro, hash, Kayttaja.OnOmistaja], callback); 
+      return db.query('insert into Kayttaja (Nimi, Osoite, PuhNro, Salasana, OnOmistaja, KayttajaTunnus) values(?,?,?,?,?,?)',       // tassaa yritetty kaikkea kummallista
+      [Kayttaja.Nimi, Kayttaja.Osoite, Kayttaja.PuhNro, hash, Kayttaja.OnOmistaja, Kayttaja.KayttajaTunnus], callback); 
     });
   },
 
