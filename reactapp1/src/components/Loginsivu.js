@@ -57,8 +57,8 @@ export default function LoginSivu(props) {
       <div className="LoginSivu">
           <h1> Luo käyttäjätunnus</h1>
 
-          <div> Kayttajatunnus </div> 
-          <div> <input type="text" /></div>  
+      {/*   <div> Kayttajatunnus </div> 
+        <div> <input type="text" /></div>    */}
 
           <div> Nimi </div> 
           <div> <input type="text" value={Nimi} onChange={handleNimilisaa} /></div> 
@@ -75,7 +75,7 @@ export default function LoginSivu(props) {
           <div> Oletko omistaja </div> 
           <div> <input type="text" value={onOmistaja} onChange={handleSetOnOmistaja}/></div>
 
-          <button onClick={ () => props.luoKayttajaFunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja) }>Luo Tunnus</button>
+          <button onClick={ () => props.luoKayttajafunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja) }>Luo Tunnus</button>
 
       </div>
 

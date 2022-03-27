@@ -7,7 +7,9 @@ router.post('/',
 function(request, response) {
   Kayttaja.add(request.body, function(err, count) {
     if (err) {
-      response.json(err);
+      //response.json(err);
+      response.json(err.errno)
+  
     } else {
       response.json(request.body); 
     }
