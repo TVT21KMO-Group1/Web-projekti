@@ -1,9 +1,10 @@
 import React from 'react'
 import ListaTaulukko from './ListaTaulukko'
 import Hakukentta from './Hakukentta'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Loginsivu from './Loginsivu'
 import {Link } from 'react-router-dom'
+import axios from 'axios';
 
 
 
@@ -23,7 +24,19 @@ const filterProducts = (products2, query) => {                      //filterprod
 };
 
 const filteredProducts = filterProducts(props.ravintolat, searchQuery);
+var ValittuRavintola2 = props.valittuRavintola;
+/*
+useEffect(() => {                                                   // testia ravintolangakuun
+  const haeRavintolanData = async (props) => {
+  const results = await axios.get('http://localhost:3000/Ravintolat/'+ValittuRavintola2+'')
+  props.setRavintolanData(results.data)
 
+  //console.log(results.data)
+  } 
+haeRavintolanData(props);
+
+}, []);
+*/
   return (
     <div>    
           
@@ -32,7 +45,7 @@ const filteredProducts = filterProducts(props.ravintolat, searchQuery);
               setSearchQuery={setSearchQuery}
       />
       <div className="Etusivu"> 
-          {filteredProducts.map(r => <ListaTaulukko ValitseRavintolaFuktio={props.ValitseRavintolaFuktio} nimi={r.Nimi} idRavintola={r.idRavintola} />)}
+          {filteredProducts.map(r => <ListaTaulukko ValitseRavintolaFunktio={props.ValitseRavintolaFunktio} nimi={r.Nimi} idRavintola={r.idRavintola} />)}
       </div>
     </div>
   )
