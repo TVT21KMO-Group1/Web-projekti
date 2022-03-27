@@ -13,6 +13,8 @@ import { useEffect, useState} from 'react';
 import KirjauduUlos from './components/KirjauduUlos';
 import Ravintola from './components/Ravintola'
 import LuoRavintola from './components/LuoRavintola';
+import Ostoskori from './components/Ostoskori'
+import TilausHistoria from './components/TilausHistoria'
 
 
 function App() {
@@ -52,19 +54,19 @@ if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ol
 
 
 
-const KirjauduSisaanFunktio = (idKayttaja, Salasana) => {
+const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
    axios.post('http://localhost:3000/login/', {
-    "idKayttaja": idKayttaja,
+    "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
   }).then(response => {
     if (response.data == true){
-      setKirjautunutKayttaja(idKayttaja);
+      setKirjautunutKayttaja(KayttajaTunnus);
       setOnOmistaja(false);
       setLoadingKirjaudu(false);
       
     } else if (response.data == "OnOmistaja"){
-      setKirjautunutKayttaja(idKayttaja);
+      setKirjautunutKayttaja(KayttajaTunnus);
       setOnOmistaja(true);
       setLoadingKirjaudu(false);
     }
@@ -97,27 +99,40 @@ const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden
 }
 
 
-const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
+const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, KayttajaTunnus) => {
 
   axios.post('http://localhost:3000/kayttaja/', {
- //  "Kayttajatunnus": Kayttajatunnus,
+   
    "Nimi": Nimi,
    "Osoite": Osoite,
    "PuhNro": PuhNro,
    "Salasana": Salasana2,
-   "OnOmistaja": OnOmistaja
+   "OnOmistaja": OnOmistaja,
+   "KayttajaTunnus": KayttajaTunnus
  }).then(response => {
     if (response.data === "1048")
      console.log("Osa tiedoista puuttuu")
     else{
       console.log("käyttäjä luotu")
     }
-    
    }
  )
- 
-
 }
+var NaytaLisaaRavintola             //Nailla riveilla muokataan palkin tulostus siten etta
+var NaytaOstoskori                  //kayttaja nakee ostoskorin ja omistaja lisaa ravintolan
+var NaytaTilausHistoria
+if(KirjautunutKayttaja == ""){
+  }else {
+    if(onOmistaja == true){
+    }else{
+    NaytaOstoskori = <div>ostoskori</div>
+    NaytaTilausHistoria = <div>tilaushistoria</div>
+
+  }}
+if(onOmistaja == true){
+  NaytaLisaaRavintola = <div>Luo Ravintola</div>
+  NaytaTilausHistoria = <div>tilaushistoria</div>
+}  
   
   return (
     <BrowserRouter> 
@@ -127,6 +142,9 @@ const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
         <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
         <Link to ='LisaaRuoka'><div>Lisää ruoka</div></Link>    {/* tässä vain testinä, siirrettävä omistajan ravintolanäkymään */}
         <Link to ='LuoRavintola'><div>Luo ravintola</div></Link>
+        <Link to ='Ostoskori'><div>{NaytaOstoskori}</div></Link>
+        <Link to ='LuoRavintola'><div>{NaytaLisaaRavintola}</div> </Link>
+        <Link to ='TilausHistoria'><div>{NaytaTilausHistoria}</div></Link>
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat}  ValitseRavintolaFuktio={ValitseRavintolaFuktio}/> } />
@@ -136,6 +154,8 @@ const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja) => {
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} />}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
+        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja}/> } />
+        <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
       
       </Routes>
 

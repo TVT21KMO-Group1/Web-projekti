@@ -6,8 +6,8 @@ const login = require('../models/login_model');
 
 router.post('/', 
 function(request, response) {
-  if(request.body.idKayttaja && request.body.Salasana){
-    const idKayttaja = request.body.idKayttaja;
+  if(request.body.KayttajaTunnus && request.body.Salasana){
+    const idKayttaja = request.body.KayttajaTunnus;
     const Salasana = request.body.Salasana;
     const OnOmistaja = request.body.OnOmistaja;
       login.checkPassword(idKayttaja, function(dbError, dbResult) {
