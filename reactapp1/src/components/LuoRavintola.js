@@ -1,49 +1,45 @@
 import React from "react";
 import {useState} from 'react';
 import axios from 'axios';
-import {Link } from 'react-router-dom'
 
-{/*Nappi uupuu, jäi kesken pähkäily. Lisäksi huomasin Ravintola.js sivun niin ppitäis vissiin keskustella keskeenään näiden. Katsellaan 26.3 LP*/}
-
-
-export default function RavintolanLisays() {
+export default function LuoRavintola() {
     const [RavintolanNimi, setRavintolanNimi] = useState(""); 
     const [Hintataso, setHintataso] = useState ("");
     const [RavintolanOsoite, setRavintolanOsoite] = useState ("");
-    const [Aukioloajat, setAukioloajat] = useState ("");
+    const [Aukeamisaika, setAukeamisaika] = useState ("");
+    const [Sulkemisaika, setSulkemisaika] = useState ("");
     const [KuvaRavintolasta, setKuvaRavintolasta] = useState ("");
+    const [RavintolanTyyppi, setRavintolanTyyppi] = useState ("");
 
-    const LuoRavintolasi = async(omaRavintola) => {
-        await axios.post('http://localhost:3000/omaRavintola', {
-          RavintolanNimi: omaRavintola.RavintolanNimi,
-          Hintataso: omaRavintola.Hintataso,
-          RavintolanOsoite: omaRavintola.RavintolanOsoite,
-          Aukioloajat: omaRavintola.Aukioloajat,
-          KuvaRavintolasta: omaRavintola.KuvaRavintolasta,
+    const LuoRavintolasi = async() => {
+        await axios.post('http://localhost:3000/Ravintolat', {
+          Nimi: RavintolanNimi,
+          Hintataso: Hintataso,
+          Osoite: RavintolanOsoite,
+          Aukeamisaika: Aukeamisaika,
+          Sulkemisaika: Sulkemisaika,
+          RavintolanTyyppi: RavintolanTyyppi,
+          KuvaRavintolasta: KuvaRavintolasta,
         })
-
-  
-    
+}
         return(
+
             <div className="LuoRavintolaNakyma"> {/*luo laatikon, jonka sisään haluan tekstin*/}
             <h1>Luo ravintolasi </h1>
 
-            <div>Ravintolan nimi <input type="text"/></div>  
-            <div>Ravintolan hintataso <input type="text"/></div>
-            <div>Ravintolan osoite <input type="text"/></div>
-            <div>Aukioloajat <input type="text"/></div>
-            <div>Kuva ravintolasta <input type="text"/></div>
+            <div>Ravintolan nimi <input type="text" value={ RavintolanNimi } onInput={e => setRavintolanNimi(e.target.value)}/></div>  
+            <div>Ravintolan hintataso <input type="text" value={ Hintataso } onInput={e => setHintataso(e.target.value)}/></div>
+            <div>Ravintolan osoite <input type="text" value={ RavintolanOsoite } onInput={e => setRavintolanOsoite(e.target.value)}/></div>
+            <div>Aukeamisaika <input type="text" value={ Aukeamisaika } onInput={e => setAukeamisaika(e.target.value)}/></div>
+            <div>Sulkemisaika <input type="text" value={ Sulkemisaika } onInput={e => setSulkemisaika(e.target.value)}/></div>
+            <div>Ravintolan tyyppi <input type="text" value={ RavintolanTyyppi } onInput={e => setRavintolanTyyppi(e.target.value)}/></div>
+            {/*<div>Kuva ravintolasta <input type="text" value={ tuote } onInput={e => setTuote(e.target.value)}/></div>*/}
 
-
-            <button onClick={ () => LuoRavintolasi({ RavintolanNimi, Hintataso, RavintolanOsoite, Aukioloajat, KuvaRavintolasta }) }>Luo Ravintola</button>
+            <button onClick={ () => LuoRavintolasi({ RavintolanNimi, Hintataso, RavintolanOsoite, Aukeamisaika, Sulkemisaika, RavintolanTyyppi, KuvaRavintolasta }) }>Luo Ravintola</button>
             
-    
-            <h1 className="App"> moikka moi testing</h1> 
 
-        </div>
-        
-       
-        
+
+            </div>
     )
 }
-}
+
