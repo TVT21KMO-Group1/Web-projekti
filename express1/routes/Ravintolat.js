@@ -27,6 +27,23 @@ router.get('/', (req, res) => {                                 //Tämä tötter
     })
  })
 
+ router.post('/', (req, res) => {                            //lisää käyttäjä
+    Ravintolat.add((req.body,function(err,count){
+        if (err){
+            res.json(err);
+        }else {
+            res.sendStatus(201);
+        }
+        
+    })
+    
+)})
+
+
+
+
+
+
 /*
 router.get('/', (req,res) => {
     Ravintolat.getAll(function(err, dbResult) {
@@ -108,4 +125,4 @@ router.put('/:userId', (req, res) => {                                  //muokka
 
 
 */
-module.exports = router
+module.exports = router;
