@@ -16,10 +16,8 @@ router.get('/', (req, res) => {                                 //Tämä tötter
   
   router.get('/:ravintolaId?', (req,res) => {                      //tama hakee tietyn ravintolan kategoriat
     tuotekategoria.getById(req.params.ravintolaId, function(err, dbResult) {
-        console.log("1")
         if (err){
             res.sendStatus(404);
-            console.log("2")
         }
         else{
             res.send(dbResult);

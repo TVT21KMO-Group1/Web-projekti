@@ -7,12 +7,8 @@ import Tuotekategoriat from './Tuotekategoriat'
 import {Link } from 'react-router-dom'
 
 
-
-
-
 export default function Ravintola (props) {
-        
-    if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
+  /*  if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
         return <div className="App">            
         <header className="App-header">
           <img src={loading} className="App-logo" alt="loading" />
@@ -21,7 +17,36 @@ export default function Ravintola (props) {
           </p>
         </header>
       </div>
+      }*/
+var ValittuRavintola1 = props.ValittuRavintola
+      useEffect(() => {                                                   // testia ravintolangakuun
+        const haeRavintolanData = async (props) => {
+        const results = await axios.get('http://localhost:3000/Ravintolat/'+ValittuRavintola1+'')
+        props.setRavintolanData(results.data)
+        } 
+      haeRavintolanData(props);
+      
+      }, []);
+
+      useEffect(() => {                                                   // tällä haetaan kaikki kategoriat ravintolasta idnumerolla
+        const haeKategoriat = async (props) => {
+        const results = await axios.get('http://localhost:3000/Tuotekategoria/'+ValittuRavintola1+'/')
+        props.setTuotekategoriat(results.data)
       }
+      haeKategoriat(props);
+      
+      }, []);
+
+      
+      if (props.RavintolanData[0] === undefined) {
+        
+      }else{
+      var RavintolanNimi= props.RavintolanData[0].Nimi
+      var RavintolanOsoite = props.RavintolanData[0].Osoite
+      var RavintolanHintataso = props.RavintolanData[0].Hintataso
+      var RavintolanTyyppi = props.RavintolanData[0].RavintolanTyyppi
+      }
+
 
 
   return (
@@ -29,10 +54,11 @@ export default function Ravintola (props) {
      <div className="RavintolaSivuIso">
         <div className="RavintolaSivu">
             <div>Ravintola numero {props.ValittuRavintola}</div>
-            <div> ravintola nimi {props.RavintolanData[0].Nimi}</div>
-            <div>Ravintolan Osoite {props.RavintolanData[0].Osoite}  </div>    
-            <div> Hintataso {props.RavintolanData[0].Hintataso}</div>
-            <div> Ravintolan tyyppi {props.RavintolanData[0].RavintolanTyyppi} </div>
+            <div> ravintola nimi {RavintolanNimi}</div>
+            <div>Ravintolan Osoite {RavintolanOsoite}  </div>    
+            <div> Hintataso {RavintolanHintataso}</div>
+            <div> Ravintolan tyyppi {RavintolanTyyppi} </div>
+            
         </div>
         <div className="RavintolaSivu"> Ravintolan kuva tahan </div>
     </div>
@@ -49,3 +75,6 @@ export default function Ravintola (props) {
 
   )
 }
+/*
+
+*/
