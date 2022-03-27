@@ -116,3 +116,10 @@
   align-items: center;
   min-width: 200px;
 }
+.LuoRavintolaNakyma {
+  border: 1px solid black;
+  margin: 30px;
+  padding: 10p;
+  min-width: 200px;
+  grid-template-columns: 100%  ;
+}

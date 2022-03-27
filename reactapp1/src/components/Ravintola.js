@@ -9,6 +9,7 @@ import {Link } from 'react-router-dom'
 
 
 
+
 export default function Ravintola (props) {
         
     if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
