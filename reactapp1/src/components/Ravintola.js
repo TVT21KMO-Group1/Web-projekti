@@ -5,9 +5,11 @@ import {useEffect, useState} from 'react';
 import axios from 'axios';
 import Tuotekategoriat from './Tuotekategoriat'
 import {Link } from 'react-router-dom'
+import RuokalistaTulostus from './RuokalistaTulostus';
 
 
 export default function Ravintola (props) {
+  console.log(props)
   /*  if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
         return <div className="App">            
         <header className="App-header">
@@ -19,7 +21,7 @@ export default function Ravintola (props) {
       </div>
       }*/
 var ValittuRavintola1 = props.ValittuRavintola
-      useEffect(() => {                                                   // testia ravintolangakuun
+      useEffect(() => {                                                   // Hakee ravintolan datan
         const haeRavintolanData = async (props) => {
         const results = await axios.get('http://localhost:3000/Ravintolat/'+ValittuRavintola1+'')
         props.setRavintolanData(results.data)
@@ -37,6 +39,15 @@ var ValittuRavintola1 = props.ValittuRavintola
       
       }, []);
 
+      useEffect(() => {                                                   // Ravintolan ruokien haku
+        const haeRavintolanRuuat = async (props) => {
+        const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'')
+        props.setRavintolanRuuat(results.data)
+        } 
+      haeRavintolanRuuat(props);
+      
+      }, []);
+      var RavintolanRuuat = props.RavintolanRuuat;
       
       if (props.RavintolanData[0] === undefined) {
         
@@ -67,7 +78,19 @@ var ValittuRavintola1 = props.ValittuRavintola
      </div></Link>{/*tassa viela linkki rikki, eli tahan pitaa keksia toimiva linkki jotta hakee databasesta ruuat oikein*/ }
 
    
-        
+     <div >
+     <div className="RavintolaSivuIso"> 
+        <div className="RavintolaSivu">Kuva</div>
+        <div className="RavintolaSivu">Tuote</div>
+        <div className="RavintolaSivu">Kuvaus</div>
+        <div className="RavintolaSivu">Hinta</div>
+        <div className="RavintolaSivu"> nappula</div>
+        </div>
+        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus RavintolanRuuat={r}/>)} </div>
+
+    
+    
+    </div>   
     </div> 
      
  
