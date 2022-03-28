@@ -9,7 +9,7 @@ import RuokalistaTulostus from './RuokalistaTulostus';
 
 
 export default function Ravintola (props) {
-  console.log(props)
+  //console.log(props)
   /*  if  (props.isLoadingRuoka){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
         return <div className="App">            
         <header className="App-header">
@@ -20,7 +20,12 @@ export default function Ravintola (props) {
         </header>
       </div>
       }*/
+
+//var HaeKaikkiRuuat = 0;   // talla jos 0 niin hakee vain tietyt ruuat kategorian valinnalla, ja jos 1 niin hakee kaikki ravintolan ruuat
+const  [ValittuKategoria, setValittuKategoria] = useState([]); /// tama pitaa viela muuttaa muuttumaan kun valitsee kategorian
 var ValittuRavintola1 = props.ValittuRavintola
+var RavintolanRuuat = props.RavintolanRuuat;
+
       useEffect(() => {                                                   // Hakee ravintolan datan
         const haeRavintolanData = async (props) => {
         const results = await axios.get('http://localhost:3000/Ravintolat/'+ValittuRavintola1+'')
@@ -42,15 +47,25 @@ var ValittuRavintola1 = props.ValittuRavintola
       useEffect(() => {                                                   // Ravintolan ruokien haku
         const haeRavintolanRuuat = async (props) => {
         const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'')
-        props.setRavintolanRuuat(results.data)
+        if(ValittuKategoria === 0){
+        props.setRavintolanRuuat(results.data)}
         } 
       haeRavintolanRuuat(props);
       
-      }, []);
-      var RavintolanRuuat = props.RavintolanRuuat;
+      }, [ValittuKategoria]);
+
+      useEffect(() => {                                                   // Ravintolan tietyn kategorian ruokien haku
+        const haeRavintolanRuuat = async (props) => {
+        const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'/'+ValittuKategoria+'')
+        if(ValittuKategoria != 0){
+        props.setRavintolanRuuat(results.data)}
+        } 
+      haeRavintolanRuuat(props);
+      
+      }, [ValittuKategoria]);
+      
       
       if (props.RavintolanData[0] === undefined) {
-        
       }else{
       var RavintolanNimi= props.RavintolanData[0].Nimi
       var RavintolanOsoite = props.RavintolanData[0].Osoite
@@ -59,6 +74,11 @@ var ValittuRavintola1 = props.ValittuRavintola
       }
 
 
+ //     useEffect(()=> {
+ //       setValittuKategoria();
+ //   }, [ValittuKategoria]);
+
+console.log(ValittuKategoria)
 
   return (
     <div>
@@ -73,9 +93,9 @@ var ValittuRavintola1 = props.ValittuRavintola
         </div>
         <div className="RavintolaSivu"> Ravintolan kuva tahan </div>
     </div>
-    
-    <Link to = '/Kirjauduttu'> <div className="RavintolaSivuIso"> {props.Tuotekategoriat.map(r => <Tuotekategoriat Tuotekategoria={r.Tuotekategoria} />)}
-     </div></Link>{/*tassa viela linkki rikki, eli tahan pitaa keksia toimiva linkki jotta hakee databasesta ruuat oikein*/ }
+    <button onClick={()=>setValittuKategoria(0)}>Nollaa kategoriat</button>
+     <div className="RavintolaSivuIso"> {props.Tuotekategoriat.map(r => <Tuotekategoriat setValittuKategoria={setValittuKategoria} Tuotekategoria={r.Tuotekategoria} idTuotekategoria={r.idTuotekategoria} />)}
+     </div> {/*tassa viela linkki rikki, eli tahan pitaa keksia toimiva linkki jotta hakee databasesta ruuat oikein*/ }
 
    
      <div >

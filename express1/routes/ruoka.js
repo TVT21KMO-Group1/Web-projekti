@@ -24,4 +24,15 @@ router.get('/:idRavintola', function(req, res) {    // hakee tietyn ravintolan k
 });
 });
 
+router.get('/:idRavintola/:idTuotekategoria', function(req, res) {    // hakee tietyn ravintolan kaikki tuotteet
+  ruoka.getAllFromCategory(req.params.idRavintola, req.params.idTuotekategoria, function(err, dbResult) { // ruoka// ruoka_model sisältää tämän toteutuksen
+    if (err) {
+        res.json(err);
+    }
+    else {
+        res.json(dbResult);
+    }
+});
+});
+
 module.exports = router;
