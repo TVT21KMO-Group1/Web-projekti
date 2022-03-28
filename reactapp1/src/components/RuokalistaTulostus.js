@@ -9,7 +9,6 @@ export default function (props) {
             <div className="RavintolaSivu">{props.RavintolanRuuat.Kuvaus}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Hinta}</div>
         </div>
-    
     </div>
   )
 }
