@@ -19,7 +19,7 @@ export default function LoginSivu(props) {
     const [Salasana2, setSalasana2] = useState("");
     const [Osoite, setOsoite] = useState("");
     const [PuhNro, setPuhNro] = useState("");
-    const [onOmistaja, setOnOmistaja] = useState("");
+    const [onOmistaja, setOnOmistaja] = useState(0);
 
     const handleKayttajaTunnusChange2 = (event) => {
       setKayttajaTunnus(event.target.value);
@@ -37,8 +37,14 @@ export default function LoginSivu(props) {
       setPuhNro(event.target.value);
     }
     const handleSetOnOmistaja = (event) => {
-      setOnOmistaja(event.target.value);
+      setOnOmistaja(!onOmistaja);
     } 
+
+ /*   const [checked, setChecked] = React.useState(0);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };*/
     
 
   return (
@@ -74,8 +80,8 @@ export default function LoginSivu(props) {
           <div> Salasana </div> 
           <div> <input type="text" value={Salasana2} onChange={handleLisaaSalasana}/></div>  
 
-          <div> Oletko omistaja </div> 
-          <div> <input type="text" value={onOmistaja} onChange={handleSetOnOmistaja}/></div>
+          <div> Oletko omistaja 
+           <input type="checkbox"  value={onOmistaja} onChange={handleSetOnOmistaja}/></div>
 
           <button onClick={ () => props.luoKayttajafunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja, KayttajaTunnus2) }>Luo Tunnus</button>
 

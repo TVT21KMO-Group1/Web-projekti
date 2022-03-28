@@ -27,6 +27,21 @@ const [RavintolanData, setRavintolanData] = useState([]);
 const [Tuotekategoriat, setTuotekategoriat] = useState([]);
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
         
+const [ostosTaulu] = useState([
+{
+  idRuoka: 1,
+  Tuote: "Hampurilainen",
+  Kuvaus: "vege",
+  Hinta: 23,
+},
+{
+  idRuoka: 2,
+  Tuote: "Salaatti",
+  Kuvaus: "ei ainakaan vege",
+  Hinta: 3000,
+}
+])
+
 
 useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
   const getData =  async () => { // tan voisi nimeta uudelleen
@@ -79,52 +94,6 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 const ValitseRavintolaFunktio = (idRavintola) => {
 setValittuRavintola(idRavintola);
 }
-/*
-const ValitseRavintolaFuktio = (idRavintola) => {
-  setValittuRavintola(idRavintola);
-useEffect(() => {                                                   // testia ravintolangakuun
-  const haeRavintolanData = async () => {
-  const results = await axios.get('http://localhost:3000/Ravintolat/'+idRavintola+'')
-  setRavintolanData(results.data)
-  console.log(results.data)
-  } 
-haeRavintolanData();
-
-}, []);
-
-useEffect(() => {                                                   // tällä haetaan kaikki kategoriat ravintolasta idnumerolla
-  const haeKategoriat = async () => {
-  const results = await axios.get('http://localhost:3000/Tuotekategoria/'+ValittuRavintola+'/')
-  setTuotekategoriat(results.data)
-}
-haeKategoriat();
-
-}, []);
-}
-*/
- /* tasta alkaa vanha yritys, ylla  uudempi
-const ValitseRavintolaFuktio = (idRavintola) => {             //tama hakee yhden  ravintolan datan idlla
-  setValittuRavintola(idRavintola);
-  setLoadingRuoka(true);
-  const haeRavintolanData = async () => {
-  await axios.get('http://localhost:3000/Ravintolat/'+idRavintola+'').then(response => {
-      setRavintolanData(response.data);
-      //setLoadingRuoka(false);
-    })
-  }
-   haeRavintolanData();
-
-  const haeKategoriat = async () => {
-    await axios.get('http://localhost:3000/Tuotekategoria/'+ValittuRavintola+'/').then(response => {
-      setTuotekategoriat(response.data);
-      setLoadingRuoka(false);                //Tanne tehty wait funktio
-      console.log(response.data)  
-    })
-  }
-
-    haeKategoriat()
-}
-*/
 
 const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, KayttajaTunnus) => {
 
@@ -181,7 +150,7 @@ if(onOmistaja == true){
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
-        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja}/> } />
+        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} /> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
       
       </Routes>

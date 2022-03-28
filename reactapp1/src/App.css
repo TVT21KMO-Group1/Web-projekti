@@ -123,3 +123,13 @@
   min-width: 200px;
   grid-template-columns: 100%  ;
 }
+.Ostoskori{
+  border: 1px solid black;
+  margin: 30px;
+  padding: 10p;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 200px;
+}
