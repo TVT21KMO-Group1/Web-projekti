@@ -28,7 +28,7 @@ router.get('/', (req, res) => {                                 //Tämä tötter
  })
 
  router.post('/', (req, res) => {                            //lisää käyttäjä
-    Ravintolat.add((req.body,function(err,count){
+    Ravintolat.add(req.body,function(err,count){
         if (err){
             res.json(err);
         }else {
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {                                 //Tämä tötter
         
     })
     
-)})
+})
 
 
 
