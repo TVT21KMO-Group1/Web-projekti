@@ -9,7 +9,7 @@ export default function Ostoskori(props) {
 
   return (
 
-    <div className="Ostoskori">Ostoskori
+    <div className="Ostoskori"> Ostoskori
 
     {props.ostosTaulu.map(r => <RuokalistaTulostus RavintolanRuuat={r}/>)} 
 
