@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function (props) {
-    console.log(props)
+    //console.log(props)
   return (
     <div>
         <div className="RavintolaSivuIso">
@@ -9,7 +9,6 @@ export default function (props) {
             <div className="RavintolaSivu">{props.RavintolanRuuat.Kuvaus}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Hinta}</div>
         </div>
-    
     </div>
   )
 }
