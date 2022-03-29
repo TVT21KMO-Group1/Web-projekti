@@ -1,7 +1,20 @@
 import React from 'react'
+import RuokalistaTulostus  from './RuokalistaTulostus';
+import { useState } from 'react';
 
-export default function Ostoskori() {
+export default function Ostoskori(props) {
+
+  const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
+
+
   return (
-    <div>Ostoskori</div>
+
+    <div className="Ostoskori"> Ostoskori
+
+    {props.ostosTaulu.map(r => <RuokalistaTulostus RavintolanRuuat={r}/>)} 
+
+    <button> Osta </button>
+    
+    </div>
   )
 }
