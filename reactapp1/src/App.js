@@ -4,7 +4,6 @@ import Etusivu from './components/Etusivu';
 import Kirjauduttu from './components/Kirjauduttu'
 import axios from 'axios';
 import Loginsivu from './components/Loginsivu'
-import LisaaRuoka from './components/LisaaRuoka'
 import {Link } from 'react-router-dom'
 import {BrowserRouter, Routes, Route } from 'react-router-dom'
 import { useEffect, useState} from 'react';
@@ -136,7 +135,6 @@ if(onOmistaja == true){
       <div className='MenuPalkki'>
         <Link to='/'><div>Etusivulle</div></Link>
         <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
-        <Link to ='LisaaRuoka'><div>Lisää ruoka</div></Link>    {/* tässä vain testinä, siirrettävä omistajan ravintolanäkymään */}
         <Link to ='LuoRavintola'><div>Luo ravintola</div></Link>
         <Link to ='Ostoskori'><div>{NaytaOstoskori}</div></Link>
         <Link to ='LuoRavintola'><div>{NaytaLisaaRavintola}</div> </Link>
@@ -146,9 +144,8 @@ if(onOmistaja == true){
         <Route path = "/" element= { <Etusivu ravintolat={ravintolat} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
-        <Route path = "LisaaRuoka" element = { <LisaaRuoka /> } />
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
-        <Route path = "Ravintola" element = { <Ravintola ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat}/>}/>
+        <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
         <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} /> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria/>} />

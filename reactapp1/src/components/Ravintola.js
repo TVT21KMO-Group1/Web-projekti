@@ -74,7 +74,11 @@ var ValittuRavintola1 = props.ValittuRavintola
       var RavintolanHintataso = props.RavintolanData[0].Hintataso
       var RavintolanTyyppi = props.RavintolanData[0].RavintolanTyyppi
       }
-
+    
+  let naytaLisaaRuoka;
+  if(props.onOmistaja === true){
+    naytaLisaaRuoka = <LisaaRuoka />
+  }
 
   return (
     <div>
@@ -104,7 +108,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         </div>
         <div>{RavintolanRuuat.map(r => <RuokalistaTulostus RavintolanRuuat={r}/>)} </div>
 
-    
+    {naytaLisaaRuoka}
     
     </div>   
     </div> 
