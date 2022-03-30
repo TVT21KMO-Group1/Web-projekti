@@ -1,4 +1,3 @@
-import loading from './loading.png'
 import './App.css';
 import Etusivu from './components/Etusivu';
 import Kirjauduttu from './components/Kirjauduttu'
@@ -15,8 +14,6 @@ import TilausHistoria from './components/TilausHistoria'
 
 
 function App() {
-const [ravintolat, setRavintolat] = useState([]);  
-const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
 const [KirjautunutKayttaja, setKirjautunutKayttaja] = useState([]);
 const [onOmistaja, setOnOmistaja] = useState([false]);
 const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
@@ -41,32 +38,6 @@ const [ostosTaulu] = useState([
 }
 ])
 
-
-useEffect(() => {                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
-  const getData =  async () => { // tan voisi nimeta uudelleen
-  axios.get('http://localhost:3000/Ravintolat').then(response => {
-    setRavintolat(response.data);
-    setLoadingRavintolat(false);                //Tanne tehty wait funktio
-  })
-}
-getData();
-
-}, []);
- 
-                                          // taman voisi siirtaa omaan komponenttiin
-if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
-  return <div className="App">
-  <header className="App-header">
-    <img src={loading} className="App-logo" alt="loading" />
-    <p className="App">
-      odota ladataan
-    </p>
-  </header>
-</div>
-}
-
-
-
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
    axios.post('http://localhost:3000/login/', {
@@ -89,6 +60,7 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
     }
     })
 }
+
 
 const ValitseRavintolaFunktio = (idRavintola) => {
 setValittuRavintola(idRavintola);
@@ -127,7 +99,7 @@ if(KirjautunutKayttaja == ""){
 if(onOmistaja == true){
   NaytaLisaaRavintola = <div>Luo Ravintola</div>
   NaytaTilausHistoria = <div>tilaushistoria</div>
-}  
+}
   
   return (
     <BrowserRouter> 
@@ -141,7 +113,7 @@ if(onOmistaja == true){
         <Link to ='TilausHistoria'><div>{NaytaTilausHistoria}</div></Link>
       </div>
       <Routes>
-        <Route path = "/" element= { <Etusivu ravintolat={ravintolat} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
+        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>

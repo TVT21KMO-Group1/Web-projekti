@@ -5,13 +5,18 @@ import {useState, useEffect} from 'react'
 import Loginsivu from './Loginsivu'
 import {Link } from 'react-router-dom'
 import axios from 'axios';
+import loading from '../loading.png'
 
 
 
 export default function Etusivu(props) {
   const { search } = window.location;                     //hakukenttaan liittyvia
   const query = new URLSearchParams(search).get('s');
-  const [searchQuery, setSearchQuery] = useState(query || ''); 
+  const [searchQuery, setSearchQuery] = useState(query || '');
+
+  const [ravintolat, setRavintolat] = useState([]);  
+  const [isLoadingRavintolat, setLoadingRavintolat] = useState([true]);
+  const KirjautunutKayttaja = props.KirjautunutKayttaja;
 
 const filterProducts = (products2, query) => {                      //filterproducts hakukenttää varten
   if (!query) {                                                     //tulostaa filterproductsin mutta jos haku tyhjä, sisältää kaikki tuotteet
@@ -23,8 +28,42 @@ const filterProducts = (products2, query) => {                      //filterprod
   });
 };
 
-const filteredProducts = filterProducts(props.ravintolat, searchQuery);
+const filteredProducts = filterProducts(ravintolat, searchQuery);
 var ValittuRavintola2 = props.valittuRavintola;
+
+useEffect(() => {
+  if(props.onOmistaja === true){
+    const getData =  async () => { // tan voisi nimeta uudelleen
+      axios.get('http://localhost:3000/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
+        setRavintolat(response.data);
+        setLoadingRavintolat(false);                //Tanne tehty wait funktio
+      })
+    }
+    getData();
+  }
+  else{
+    const getData =  async () => { // tan voisi nimeta uudelleen
+      axios.get('http://localhost:3000/Ravintolat').then(response => {
+        setRavintolat(response.data);
+        setLoadingRavintolat(false);                //Tanne tehty wait funktio
+      })
+    }
+    getData();
+  }                                                //Tahan tulee haku databasesta axioksen avulla //tälä haetaan kaikki tuotteet 
+
+}, []);
+ 
+                                          // taman voisi siirtaa omaan komponenttiin
+if  (isLoadingRavintolat){                //nayttaa lataa tekstin kun data ei ole saapunut, tahan viel'joku siisti pallura pyorimaan
+  return <div className="App">
+  <header className="App-header">
+    <img src={loading} className="App-logo" alt="loading" />
+    <p className="App">
+      odota ladataan
+    </p>
+  </header>
+</div>
+}
 /*
 useEffect(() => {                                                   // testia ravintolangakuun
   const haeRavintolanData = async (props) => {
