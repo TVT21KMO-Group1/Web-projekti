@@ -7,8 +7,6 @@ import {Link } from 'react-router-dom'
 import axios from 'axios';
 import loading from '../loading.png'
 
-
-
 export default function Etusivu(props) {
   const { search } = window.location;                     //hakukenttaan liittyvia
   const query = new URLSearchParams(search).get('s');
