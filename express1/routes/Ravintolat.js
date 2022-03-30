@@ -27,8 +27,8 @@ router.get('/', (req, res) => {                                 //Tämä tötter
     })
  })
 
- router.get('/owner/:kayttajaId', (req,res) => {        //Hakee omistajan ravintolan
-    Ravintolat.getOmistajanRavintola(req.params.kayttajaId, function(err, dbResult) {
+ router.get('/owner/:kayttajatunnus', (req,res) => {        //Hakee omistajan ravintolan
+    Ravintolat.getOmistajanRavintola(req.params.kayttajatunnus, function(err, dbResult) {
         if (err){
             res.sendStatus(404);
         }

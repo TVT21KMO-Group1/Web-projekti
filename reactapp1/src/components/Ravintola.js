@@ -26,15 +26,14 @@ const  [ValittuKategoria, setValittuKategoria] = useState([]); /// tama pitaa vi
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
 var ValittuRavintola1 = props.ValittuRavintola
 
-
-      useEffect(() => {                                                   // Hakee ravintolan datan
+      useEffect(() => { 
         const haeRavintolanData = async (props) => {
         const results = await axios.get('http://localhost:3000/Ravintolat/'+ValittuRavintola1+'')
         props.setRavintolanData(results.data)
-        } 
+        }  
       haeRavintolanData(props);
       
-      }, []);
+    }, []);
 
       useEffect(() => {                                                   // tällä haetaan kaikki kategoriat ravintolasta idnumerolla
         const haeKategoriat = async (props) => {

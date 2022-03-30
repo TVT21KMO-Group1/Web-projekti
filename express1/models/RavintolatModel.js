@@ -11,8 +11,8 @@ const Ravintolat = {
   getById: function(id, callback) {         
     return db.query('select * from Ravintola  where idRavintola=?', [id], callback);         // tasta tulee Ravintolan tiedot idlla 
   },
-  getOmistajanRavintola: function(kayttajaId, cb) {
-    return db.query('select * from ravintola join kayttaja on idRavintola = Ravintola_idRavintola where idKayttaja=?', [kayttajaId], cb);
+  getOmistajanRavintola: function(kayttajatunnus, cb) {
+    return db.query('select * from ravintola join kayttaja on idRavintola = Ravintola_idRavintola where kayttajatunnus=?', [kayttajatunnus], cb);
   },
   add: function(ravintolat, callback){
     return db.query('insert into Ravintola (Nimi, Hintataso, Osoite, Aukeamisaika, Sulkemisaika, RavintolanTyyppi) values(?,?,?,?,?,?)',
