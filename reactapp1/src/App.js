@@ -11,6 +11,7 @@ import Ravintola from './components/Ravintola'
 import LuoRavintola from './components/LuoRavintola';
 import Ostoskori from './components/Ostoskori'
 import TilausHistoria from './components/TilausHistoria'
+import RuokalistaTulostus  from './components/RuokalistaTulostus';
 
 
 function App() {
@@ -23,7 +24,7 @@ const [RavintolanData, setRavintolanData] = useState([]);
 const [Tuotekategoriat, setTuotekategoriat] = useState([]);
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
         
-const [ostosTaulu] = useState([
+const [ostosTaulu, setOstosTaulu] = useState([
 {
   idRuoka: 1,
   Tuote: "Hampurilainen",
@@ -37,6 +38,26 @@ const [ostosTaulu] = useState([
   Hinta: 3000,
 }
 ])
+
+const lisaaOstoskoriin = (Tuote, Hinta, Kuvaus) => {
+    
+  let newProducts = [...ostosTaulu, { 
+    idRuoka: ostosTaulu.length + 1, 
+    Tuote: Tuote,
+    Kuvaus: Kuvaus,
+    Hinta : Hinta
+    }];
+   setOstosTaulu(newProducts); 
+
+}
+
+const poistaOstoskorista = (item) => {
+  console.log(item);
+  let newProducts = [...ostosTaulu];
+  let deletedItemIndex = newProducts.findIndex(p=> p.idRuoka === item.idRuoka);
+  newProducts.splice(deletedItemIndex, 1);
+  setOstosTaulu(newProducts);
+  }
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
@@ -117,11 +138,10 @@ if(onOmistaja == true){
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
-        <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat}/>}/>
+        <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
-        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} /> } />
+        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista}/> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
-      
       </Routes>
 
     </div>
