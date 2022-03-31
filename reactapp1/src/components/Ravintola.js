@@ -73,10 +73,40 @@ var ValittuRavintola1 = props.ValittuRavintola
       var RavintolanHintataso = props.RavintolanData[0].Hintataso
       var RavintolanTyyppi = props.RavintolanData[0].RavintolanTyyppi
       }
-    
+ 
+      const lisaaKategoria = async(ruoka) => {
+        let kategoria = await axios.post('http://localhost:3000/tuotekategoria', {
+          tuotekategoria: ruoka.kategoria,
+          Ravintola_idRavintola: ValittuRavintola1
+      })
+        let idKategoria = kategoria.data.insertId;
+        lisaaRuoka(ruoka, idKategoria);
+    }
+
+      const onAddClick = (ruoka) => {
+        let kategoriat = props.Tuotekategoriat;
+        let foundKategoriaIndex = kategoriat.map(o => o.Tuotekategoria.toLowerCase()).indexOf(ruoka.kategoria.toLowerCase());
+        if(foundKategoriaIndex === -1){
+          lisaaKategoria(ruoka);
+          }
+        else{
+          let idKategoria = kategoriat[foundKategoriaIndex].idTuotekategoria;
+          lisaaRuoka(ruoka, idKategoria);
+        }
+      }
+
+      const lisaaRuoka = async(ruoka, idKategoria) => {
+        await axios.post('http://localhost:3000/ruoka', {
+          tuote: ruoka.tuote,
+          kuvaus: ruoka.kuvaus,
+          hinta: ruoka.hinta,
+          tuotekategoria_idtuotekategoria: idKategoria
+        })
+      }
+
   let naytaLisaaRuoka;
   if(props.onOmistaja === true){
-    naytaLisaaRuoka = <LisaaRuoka />
+    naytaLisaaRuoka = <LisaaRuoka onAddClick={onAddClick} />
   }
 
   return (

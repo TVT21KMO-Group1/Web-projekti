@@ -2,21 +2,12 @@ import React from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 
-export default function LisaaRuoka() {
+export default function LisaaRuoka(props) {
     const [tuote, setTuote] = useState("");
     const [kuvaus, setKuvaus] = useState("");
     const [hinta, setHinta] = useState("");
     const [kategoria, setKategoria] = useState("");
     const [kuva, setKuva] = useState("");
-
-    const lisaaRuoka = async(ruoka) => {
-        await axios.post('http://localhost:3000/ruoka', {
-          tuote: ruoka.tuote,
-          kuvaus: ruoka.kuvaus,
-          hinta: ruoka.hinta,
-          tuotekategoria_idtuotekategoria: ruoka.kategoria
-        })
-      }
 
     return(
         <div className="flex">
@@ -35,7 +26,7 @@ export default function LisaaRuoka() {
             <div className="flex column">Kuva
                 <input type="text" placeholder="Kuva" value={ kuva } onInput={e => setKuva(e.target.value)}/>
             </div>
-            <button onClick={ () => lisaaRuoka({ tuote, kuvaus, hinta, kategoria }) }>Lisää</button>
+            <button onClick={ () => props.onAddClick({ tuote, kuvaus, hinta, kategoria }) }>Lisää</button>
         </div>
     )
 }
