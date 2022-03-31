@@ -7,4 +7,5 @@ props.setKirjautunutKayttaja(0)
   return (
     <div>Kirjauduit ulos</div>
   )
+
 }
