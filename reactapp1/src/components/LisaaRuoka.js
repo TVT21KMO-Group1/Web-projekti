@@ -2,7 +2,7 @@ import React from 'react';
 import {useState} from 'react';
 import axios from 'axios';
 
-export default function Ruokalista() {
+export default function LisaaRuoka() {
     const [tuote, setTuote] = useState("");
     const [kuvaus, setKuvaus] = useState("");
     const [hinta, setHinta] = useState("");
