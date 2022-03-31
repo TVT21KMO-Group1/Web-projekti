@@ -39,7 +39,7 @@ const [ostosTaulu, setOstosTaulu] = useState([
 }
 ])
 
-const lisaaOstoskoriin = (Tuote, Hinta, Kuvaus) => {
+const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta) => {
     
   let newProducts = [...ostosTaulu, { 
     idRuoka: ostosTaulu.length + 1, 
@@ -109,29 +109,35 @@ const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, Kaytta
 var NaytaLisaaRavintola             //Nailla riveilla muokataan palkin tulostus siten etta
 var NaytaOstoskori                  //kayttaja nakee ostoskorin ja omistaja lisaa ravintolan
 var NaytaTilausHistoria
+var KirjauduUlos1
+var KirjauduSisaan
 if(KirjautunutKayttaja == ""){
+  KirjauduSisaan = <div>Kirjaudu sisaan</div>
+
   }else {
     if(onOmistaja == true){
+      NaytaLisaaRavintola = <div>Luo Ravintola</div>
+      NaytaTilausHistoria = <div>tilaushistoria</div>
+      KirjauduUlos1 = <div>Kirjaudu Ulos</div>
     }else{
     NaytaOstoskori = <div>ostoskori</div>
     NaytaTilausHistoria = <div>tilaushistoria</div>
+    KirjauduUlos1 = <div>Kirjaudu Ulos</div>
 
   }}
-if(onOmistaja == true){
-  NaytaLisaaRavintola = <div>Luo Ravintola</div>
-  NaytaTilausHistoria = <div>tilaushistoria</div>
-}
+
   
   return (
     <BrowserRouter> 
     <div> 
       <div className='MenuPalkki'>
         <Link to='/'><div>Etusivulle</div></Link>
-        <Link to ='Loginsivu'><div>Kirjaudu </div></Link>
+        <Link to ='Loginsivu'><div>{KirjauduSisaan} </div></Link>
         <Link to ='LuoRavintola'><div>Luo ravintola</div></Link>
         <Link to ='Ostoskori'><div>{NaytaOstoskori}</div></Link>
         <Link to ='LuoRavintola'><div>{NaytaLisaaRavintola}</div> </Link>
         <Link to ='TilausHistoria'><div>{NaytaTilausHistoria}</div></Link>
+        <Link to ='KirjauduUlos'><div>{KirjauduUlos1}</div></Link>
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
