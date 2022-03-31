@@ -105,7 +105,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         <div className="RavintolaSivu">Hinta</div>
         <div className="RavintolaSivu"> nappula</div>
         </div>
-        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus RavintolanRuuat={r}/>)} </div>
+        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin}/>)} </div>
 
     {naytaLisaaRuoka}
     
