@@ -43,7 +43,7 @@ var ValittuRavintola1 = props.ValittuRavintola
       }
       haeKategoriat(props);
       
-      }, []);
+      }, [props.Tuotekategoriat]);
 
       useEffect(() => {                                                   // Ravintolan ruokien haku
         const haeRavintolanRuuat = async (props) => {
@@ -52,7 +52,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         } 
       haeRavintolanRuuat(props);
       
-      }, [ValittuKategoria, props.idRavintola]);
+      }, [ValittuKategoria, props.idRavintola, RavintolanRuuat]);
 
       useEffect(() => {                                                   // Ravintolan tietyn kategorian ruokien haku
         const haeRavintolanRuuat = async (props) => {
@@ -102,7 +102,13 @@ var ValittuRavintola1 = props.ValittuRavintola
           hinta: ruoka.hinta,
           tuotekategoria_idtuotekategoria: idKategoria
         })
-      }
+        props.Tuotekategoriat = [...props.Tuotekategoriat, {idTuotekategoria: idKategoria}];
+        props.RavintolanRuuat = [...RavintolanRuuat, {
+          tuote: ruoka.tuote,
+          kuvaus: ruoka.kuvaus,
+          hinta: ruoka.hinta,
+          tuotekategoria_idtuotekategoria: idKategoria}];
+      };
 
   let naytaLisaaRuoka;
   if(props.onOmistaja === true){
