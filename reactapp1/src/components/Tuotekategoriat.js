@@ -13,11 +13,7 @@ export default function Tuotekategoriat(props) {
     <div className="Ravintolalista" onClick={()=> props.setValittuKategoria(props.idTuotekategoria) }>
        
           <div > {props.Tuotekategoria}</div>
-          <div > {props.idTuotekategoria}</div>
-        
-
-       
-
+  
     </div>
   );
 }

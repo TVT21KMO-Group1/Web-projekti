@@ -43,26 +43,22 @@ var ValittuRavintola1 = props.ValittuRavintola
       }
       haeKategoriat(props);
       
-      }, [props.Tuotekategoriat]);
+      }, [props.RavintolanRuuat]);
 
       useEffect(() => {                                                   // Ravintolan ruokien haku
         const haeRavintolanRuuat = async (props) => {
-        const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'')
-        setRavintolanRuuat(results.data)
-        } 
-      haeRavintolanRuuat(props);
-      
-      }, [ValittuKategoria, props.idRavintola, RavintolanRuuat]);
+            const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'')
+            setRavintolanRuuat(results.data)
+          }
+        haeRavintolanRuuat(props);
+      }, [props.idRavintola, props.RavintolanRuuat]);
 
-      useEffect(() => {                                                   // Ravintolan tietyn kategorian ruokien haku
+       useEffect(() => {                                                   // Ravintolan tietyn kategorian ruokien haku
         const haeRavintolanRuuat = async (props) => {
         const results = await axios.get('http://localhost:3000/ruoka/'+ValittuRavintola1+'/'+ValittuKategoria+'')
-        if(ValittuKategoria != 0){
         setRavintolanRuuat(results.data)
-        }
         } 
       haeRavintolanRuuat(props);
-      
       }, [ValittuKategoria]);
       
       
@@ -74,16 +70,16 @@ var ValittuRavintola1 = props.ValittuRavintola
       var RavintolanTyyppi = props.RavintolanData[0].RavintolanTyyppi
       }
  
-      const lisaaKategoria = async(ruoka) => {
+      const lisaaKategoria = async(ruoka) => {        //Lisää uuden tuotekategorian
         let kategoria = await axios.post('http://localhost:3000/tuotekategoria', {
           tuotekategoria: ruoka.kategoria,
           Ravintola_idRavintola: ValittuRavintola1
       })
-        let idKategoria = kategoria.data.insertId;
-        lisaaRuoka(ruoka, idKategoria);
+        let idKategoria = kategoria.data.insertId;    //Uuden tuotekategorian id tallennetaan idKategoria muuttujaan
+        lisaaRuoka(ruoka, idKategoria);               //ja välitetään lisaaRuoka-funktiolle
     }
 
-      const onAddClick = (ruoka) => {
+      const onAddClick = (ruoka) => {                 //Kun LisääRuoka-komponentin lisää-nappia painetaan
         let kategoriat = props.Tuotekategoriat;
         let foundKategoriaIndex = kategoriat.map(o => o.Tuotekategoria.toLowerCase()).indexOf(ruoka.kategoria.toLowerCase());
         if(foundKategoriaIndex === -1){
@@ -102,12 +98,11 @@ var ValittuRavintola1 = props.ValittuRavintola
           hinta: ruoka.hinta,
           tuotekategoria_idtuotekategoria: idKategoria
         })
-        props.Tuotekategoriat = [...props.Tuotekategoriat, {idTuotekategoria: idKategoria}];
-        props.RavintolanRuuat = [...RavintolanRuuat, {
+        props.setRavintolanRuuat ([...props.RavintolanRuuat, {
           tuote: ruoka.tuote,
           kuvaus: ruoka.kuvaus,
           hinta: ruoka.hinta,
-          tuotekategoria_idtuotekategoria: idKategoria}];
+          tuotekategoria_idtuotekategoria: idKategoria}]);
       };
 
   let naytaLisaaRuoka;
@@ -128,7 +123,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         </div>
         <div className="RavintolaSivu"> Ravintolan kuva tahan </div>
     </div>
-    <button onClick={()=>setValittuKategoria(0)}>Nollaa kategoriat</button>
+    <button onClick={()=>setValittuKategoria("")}>Nollaa kategoriat</button>
      <div className="RavintolaSivuIso"> {props.Tuotekategoriat.map(r => <Tuotekategoriat setValittuKategoria={setValittuKategoria} Tuotekategoria={r.Tuotekategoria} idTuotekategoria={r.idTuotekategoria} />)}
      </div> 
 
