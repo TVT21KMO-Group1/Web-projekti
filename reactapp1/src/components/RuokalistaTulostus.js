@@ -2,9 +2,13 @@ import React from 'react'
 
 export default function (props) {
     
-    let nappi=<button onClick={()=>props.lisaaOstoskoriin(props.RavintolanRuuat.Tuote, props.RavintolanRuuat.Kuvaus, props.RavintolanRuuat.Hinta)}>Ostoskoriin</button> 
-    if(props.OnOstoskori === 1){
-    nappi= <button onClick={()=>props.poistaOstoskorista(props.RavintolanRuuat)}>Poista Tuote</button> 
+    let nappi;
+    if(props.onOmistaja === false){
+      nappi=<button onClick={()=>props.lisaaOstoskoriin(props.RavintolanRuuat.Tuote, props.RavintolanRuuat.Kuvaus, props.RavintolanRuuat.Hinta)}>Lisää ostoskoriin</button>
+    }
+    
+      if(props.OnOstoskori === 1){
+      nappi= <button onClick={()=>props.poistaOstoskorista(props.RavintolanRuuat)}>Poista Tuote</button> 
     }
 
   return (

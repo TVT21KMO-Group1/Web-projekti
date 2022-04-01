@@ -82,23 +82,23 @@ var ValittuRavintola1 = props.ValittuRavintola
       const onAddClick = (ruoka) => {                 //Kun LisääRuoka-komponentin lisää-nappia painetaan
         let kategoriat = props.Tuotekategoriat;
         let foundKategoriaIndex = kategoriat.map(o => o.Tuotekategoria.toLowerCase()).indexOf(ruoka.kategoria.toLowerCase());
-        if(foundKategoriaIndex === -1){
+        if(foundKategoriaIndex === -1){     //Jos kategorioista ei löytynyt annettua kategoriaa se lisätään tietokantaan
           lisaaKategoria(ruoka);
           }
-        else{
+        else{                               //Jos kategoria löytyi, se välitetään lisaaRuoka-funktiolle
           let idKategoria = kategoriat[foundKategoriaIndex].idTuotekategoria;
           lisaaRuoka(ruoka, idKategoria);
         }
       }
 
-      const lisaaRuoka = async(ruoka, idKategoria) => {
+      const lisaaRuoka = async(ruoka, idKategoria) => {       //Lisää ruoan tietokantaan
         await axios.post('http://localhost:3000/ruoka', {
           tuote: ruoka.tuote,
           kuvaus: ruoka.kuvaus,
           hinta: ruoka.hinta,
           tuotekategoria_idtuotekategoria: idKategoria
         })
-        props.setRavintolanRuuat ([...props.RavintolanRuuat, {
+        props.setRavintolanRuuat ([...props.RavintolanRuuat, {    //Tämä päivittää näytölle kategoriat ja ruuat
           tuote: ruoka.tuote,
           kuvaus: ruoka.kuvaus,
           hinta: ruoka.hinta,
@@ -136,7 +136,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         <div className="RavintolaSivu">Hinta</div>
         <div className="RavintolaSivu"> nappula</div>
         </div>
-        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin}/>)} </div>
+        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus onOmistaja={props.onOmistaja} RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin}/>)} </div>
 
     {naytaLisaaRuoka}
     
