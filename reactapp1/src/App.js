@@ -59,6 +59,25 @@ const poistaOstoskorista = (item) => {
   setOstosTaulu(newProducts);
   }
 
+const ostaFunktio = async(kokonaishinta) => {     //kun ostoskorissa painetaan osta-nappulaa
+  let results = await axios.post('http://localhost:3000/tilaus', {
+    Summa: kokonaishinta,
+    Kayttaja_idKayttaja: 1      // Käyttäjän id pitäisi saada jostain
+  })
+  let idTilaus = results.data.insertId;
+  tuotteetTietokantaan(idTilaus);
+}
+
+const tuotteetTietokantaan = async(idTilaus) => {
+  for(let i = 0; i<ostosTaulu.length; i++){
+  let idRuoka = ostosTaulu[i].idRuoka;        //pystyisköhän ruuat tallentamaan varchar:ina tietokantaan kaikki yhdelle riville?
+  console.log(idRuoka);
+  await axios.post('http://localhost:3000/tilatuttuotteet', {
+    Tuotteet: idRuoka,
+    Tilaus_idTilaus: idTilaus
+  })}
+}
+
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
    axios.post('http://localhost:3000/login/', {
@@ -146,7 +165,7 @@ if(KirjautunutKayttaja == ""){
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
-        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista}/> } />
+        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
       </Routes>
 

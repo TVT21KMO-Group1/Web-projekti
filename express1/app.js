@@ -45,6 +45,8 @@ var RavintolatRouter = require('./routes/Ravintolat');
 var loginRouter = require('./routes/login');
 var ruokaRouter = require('./routes/ruoka');
 var tuotekategoriaRouter = require('./routes/tuotekategoria');
+var tilausRouter = require('./routes/tilaus');
+var tilatuttuotteetRouter = require('./routes/tilatuttuotteet')
 //var app = express();
 
 // view engine setup
@@ -76,6 +78,8 @@ app.use('/Kayttaja', KayttajaRouter);
 app.use('/login', loginRouter);
 app.use('/ruoka', ruokaRouter);
 app.use('/tuotekategoria', tuotekategoriaRouter);
+app.use('/tilaus', tilausRouter);
+app.use('/tilatuttuotteet', tilatuttuotteetRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -30,7 +30,7 @@ export default function Ostoskori(props) {
 
     {props.ostosTaulu.map(r => <RuokalistaTulostus RavintolanRuuat={r} OnOstoskori={OnOstoskori} poistaOstoskorista={props.poistaOstoskorista}/>)} 
     
-    <button> Osta </button>
+    <button onClick={ () => props.ostaFunktio(kokonaishinta) }> Osta </button>
     <div>Kokonaishinta {kokonaishinta}</div>
     
     </div>
