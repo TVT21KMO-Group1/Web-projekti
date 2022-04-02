@@ -25,7 +25,7 @@ const [Tuotekategoriat, setTuotekategoriat] = useState([]);
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([
-{
+/*{
   idRuoka: 1,
   Tuote: "Hampurilainen",
   Kuvaus: "vege",
@@ -36,7 +36,7 @@ const [ostosTaulu, setOstosTaulu] = useState([
   Tuote: "Salaatti",
   Kuvaus: "ei ainakaan vege",
   Hinta: 3000,
-}
+}*/
 ])
 
 const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta) => {
