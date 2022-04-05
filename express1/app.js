@@ -15,6 +15,8 @@ const port = 3000
 const app           = express(),  
       DEFAULT_PORT  = 3000
 
+
+      
 app.use(helmet());
 const dotenv = require('dotenv');
 dotenv.config();
@@ -102,5 +104,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+app.listen(app.get(process.env.PORT ||80), function(){})
 
 module.exports = app;
