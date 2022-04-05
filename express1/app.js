@@ -38,7 +38,7 @@ function myAuthorizer(username, password, cb){
 }
 
 */
-
+app.use(express.static('build'))
 
 
 

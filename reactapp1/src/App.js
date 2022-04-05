@@ -59,13 +59,15 @@ const poistaOstoskorista = (item) => {
   setOstosTaulu(newProducts);
   }
 
-const ostaFunktio = async(kokonaishinta) => {     //kun ostoskorissa painetaan osta-nappulaa
-  let results = await axios.post('http://localhost:3000/tilaus', {
-    Summa: kokonaishinta,
-    Kayttaja_idKayttaja: 1      // Käyttäjän id pitäisi saada jostain
+const ostaFunktio = async(kokonaishinta) => { 
+  //kun ostoskorissa painetaan osta-nappulaa
+  await axios.post('http://localhost:3000/tilaus', {
+    "Summa": kokonaishinta,
+    "idKayttaja": KirjautunutKayttaja,      // Käyttäjän id pitäisi saada jostain
+    "OstosTaulu" : ostosTaulu
   })
-  let idTilaus = results.data.insertId;
-  tuotteetTietokantaan(idTilaus);
+ // let idTilaus = results.data.insertId;
+  //tuotteetTietokantaan(idTilaus);
 }
 
 const tuotteetTietokantaan = async(idTilaus) => {
