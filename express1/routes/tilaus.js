@@ -5,7 +5,7 @@ const bodyParser = require('body-parser')
 
 router.post('/',  function(req, res) {  
     tilaus.add(req.body, function(err, dbResult) {
-      console.log(req.body.OstosTaulu)
+     // console.log(req.body.OstosTaulu)
       if (err) {
         res.json(err);
       } else {

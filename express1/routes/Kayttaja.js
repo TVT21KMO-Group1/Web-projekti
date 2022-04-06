@@ -26,5 +26,15 @@ router.get('/', function(req,res){
     })
 })
 
+router.get('/:KayttajaTunnus?', function(req, res){
+  Kayttaja.get(req.params.KayttajaTunnus, function(err, dbResult){
+    if(err) {
+      res.json('loginerrori');
+  } else { 
+      res.send(dbResult); 
+  }
+  })
+})
+
 
 module.exports = router;

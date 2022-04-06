@@ -16,6 +16,7 @@ import RuokalistaTulostus  from './components/RuokalistaTulostus';
 
 function App() {
 const [KirjautunutKayttaja, setKirjautunutKayttaja] = useState([]);
+const [KirjautunutKayttajaID, setKirjautunutKayttajaID] = useState([]);
 const [onOmistaja, setOnOmistaja] = useState([false]);
 const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
 const [isLoadingRuoka, setLoadingRuoka] = useState([false]);
@@ -39,10 +40,11 @@ const [ostosTaulu, setOstosTaulu] = useState([
 }*/
 ])
 
-const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta) => {
+const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka) => {
     
   let newProducts = [...ostosTaulu, { 
-    idRuoka: ostosTaulu.length + 1, 
+    idRuokaOstoskori: ostosTaulu.length + 1,
+    idRuoka: idRuoka,
     Tuote: Tuote,
     Kuvaus: Kuvaus,
     Hinta : Hinta
@@ -52,9 +54,8 @@ const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta) => {
 }
 
 const poistaOstoskorista = (item) => {
-  console.log(item);
   let newProducts = [...ostosTaulu];
-  let deletedItemIndex = newProducts.findIndex(p=> p.idRuoka === item.idRuoka);
+  let deletedItemIndex = newProducts.findIndex(p=> p.idRuokaOstoskori === item.idRuokaOstoskori);
   newProducts.splice(deletedItemIndex, 1);
   setOstosTaulu(newProducts);
   }
@@ -63,13 +64,13 @@ const ostaFunktio = async(kokonaishinta) => {
   //kun ostoskorissa painetaan osta-nappulaa
   await axios.post('http://localhost:3000/tilaus', {
     "Summa": kokonaishinta,
-    "idKayttaja": KirjautunutKayttaja,      // Käyttäjän id pitäisi saada jostain
+    "idKayttaja": KirjautunutKayttajaID,      // Käyttäjän id pitäisi saada jostain
     "OstosTaulu" : ostosTaulu
   })
  // let idTilaus = results.data.insertId;
   //tuotteetTietokantaan(idTilaus);
 }
-
+/*
 const tuotteetTietokantaan = async(idTilaus) => {
   for(let i = 0; i<ostosTaulu.length; i++){
   let idRuoka = ostosTaulu[i].idRuoka;        //pystyisköhän ruuat tallentamaan varchar:ina tietokantaan kaikki yhdelle riville?
@@ -78,7 +79,13 @@ const tuotteetTietokantaan = async(idTilaus) => {
     Tuotteet: idRuoka,
     Tilaus_idTilaus: idTilaus
   })}
+}*/
+const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
+   await axios.get('http://localhost:3000/Kayttaja/'+KayttajaTunnus+'').then(response => {
+        setKirjautunutKayttajaID(response.data[0].idKayttaja);
+      })
 }
+
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
@@ -90,15 +97,21 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
       setKirjautunutKayttaja(KayttajaTunnus);
       setOnOmistaja(false);
       setLoadingKirjaudu(false);
+      haeKirjautunutKayttaja(KayttajaTunnus);
+
       
     } else if (response.data == "OnOmistaja"){
       setKirjautunutKayttaja(KayttajaTunnus);
       setOnOmistaja(true);
       setLoadingKirjaudu(false);
+      haeKirjautunutKayttaja(KayttajaTunnus);
+
     }
     else {
       console.log("yritappa uuelleen")
       setLoadingKirjaudu(false);
+      haeKirjautunutKayttaja(0); // tämän toiminta pitää tarkastaa toimnta
+
     }
     })
 }

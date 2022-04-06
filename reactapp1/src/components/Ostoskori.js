@@ -4,7 +4,6 @@ import { useState } from 'react';
 
 export default function Ostoskori(props) {
 
-  console.log(props.ostosTaulu)
   const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
   const OnOstoskori = 1;
   let kokonaishinta = 0;
