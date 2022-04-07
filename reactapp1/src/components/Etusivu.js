@@ -33,6 +33,7 @@ useEffect(() => {
   if(props.onOmistaja === true){
     const getData =  async () => { // tan voisi nimeta uudelleen
       axios.get('http://localhost:3000/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
+        console.log(response.data);
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
       })

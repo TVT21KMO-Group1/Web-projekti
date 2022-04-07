@@ -19,6 +19,10 @@ const Kayttaja={
 
   get: function(KayttajaTunnus, callback) {
     return db.query('select idKayttaja from Kayttaja where KayttajaTunnus = ?', [KayttajaTunnus], callback)
+  },
+
+  put: function(Kayttaja,callback) {
+    return db.query('UPDATE Kayttaja SET Ravintola_idRavintola=? WHERE idKayttaja = ? ', [Kayttaja.Ravintola_idRavintola, Kayttaja.idKayttaja], callback);//tämä kesken
   }
  /* lukitus: function(postData, callback) {         
     return db.query('UPDATE pankkiautomaatti.kortti SET Lukittu = 1 WHERE idKortti=?', [postData.id], callback);         // tasta tulee kortti idlla asiakkaan nimi
