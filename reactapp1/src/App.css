@@ -133,3 +133,15 @@
   align-items: center;
   min-width: 200px;
 }
+.ListaVierekkain{
+  
+  margin: 5px;
+  padding: 10p;
+  display: flex;
+  flex-direction: column;
+}
+.Paalista{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}
