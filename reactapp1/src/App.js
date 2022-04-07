@@ -24,21 +24,19 @@ const [ValittuRavintola, setValittuRavintola] = useState([]);
 const [RavintolanData, setRavintolanData] = useState([]);
 const [Tuotekategoriat, setTuotekategoriat] = useState([]);
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
+const [tilausHistoria, setTilausHistoria] = useState([]);
         
-const [ostosTaulu, setOstosTaulu] = useState([
-/*{
-  idRuoka: 1,
-  Tuote: "Hampurilainen",
-  Kuvaus: "vege",
-  Hinta: 23,
-},
-{
-  idRuoka: 2,
-  Tuote: "Salaatti",
-  Kuvaus: "ei ainakaan vege",
-  Hinta: 3000,
-}*/
-])
+const [ostosTaulu, setOstosTaulu] = useState([]);
+
+useEffect(() => {
+  const getData = async () => {
+  const results = await axios.get('http://localhost:3000/tilaushistoria/'+KirjautunutKayttajaID+'')
+    console.log(results.data);
+  setTilausHistoria(results.data);
+  }
+  getData();
+}, []);
+
 
 const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka) => {
     
@@ -181,7 +179,7 @@ if(KirjautunutKayttaja == ""){
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola KirjautunutKayttajaID={KirjautunutKayttajaID} /> } />
         <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
-        <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
+        <Route path = "TilausHistoria" element = { <TilausHistoria tilausHistoria = {tilausHistoria} KirjautunutKayttajaID={KirjautunutKayttajaID}/>} />
       </Routes>
 
     </div>

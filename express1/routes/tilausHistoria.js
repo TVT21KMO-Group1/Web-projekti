@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const ostosHistoria = require('../models/ostoshistoria_model')
+const ostosHistoria = require('../models/tilausHistoria_model')
 
 router.get('/', (req, res) => {             //tän tulisi hakea tilaukset
     ostosHistoria.getAll(function(err, dbResult) {

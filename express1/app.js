@@ -53,7 +53,7 @@ var ruokaRouter = require('./routes/ruoka');
 var tuotekategoriaRouter = require('./routes/tuotekategoria');
 var tilausRouter = require('./routes/tilaus');
 var tilatuttuotteetRouter = require('./routes/tilatuttuotteet')
-var ostosHistoriaRouter = require('./routes/ostoshistoria')
+var tilausHistoriaRouter = require('./routes/tilausHistoria')
 //var app = express();
 
 // view engine setup
@@ -87,7 +87,7 @@ app.use('/ruoka', ruokaRouter);
 app.use('/tuotekategoria', tuotekategoriaRouter);
 app.use('/tilaus', tilausRouter);
 app.use('/tilatuttuotteet', tilatuttuotteetRouter);
-app.use('/ostosHistoria', ostosHistoriaRouter);
+app.use('/tilausHistoria', tilausHistoriaRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
