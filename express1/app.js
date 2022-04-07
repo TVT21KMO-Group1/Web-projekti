@@ -10,6 +10,7 @@ var connection  = require('./lib/db');
 const helmet = require('helmet');
 const cors = require('cors');
 //var app = express();
+var bodyParser = require('body-parser');
 const port = 3000
 const app           = express(),  
       DEFAULT_PORT  = 3000
@@ -17,6 +18,9 @@ const app           = express(),
 app.use(helmet());
 const dotenv = require('dotenv');
 dotenv.config();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
 
