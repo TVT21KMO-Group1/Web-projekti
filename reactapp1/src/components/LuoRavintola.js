@@ -2,7 +2,7 @@ import React from "react";
 import {useState} from 'react';
 import axios from 'axios';
 
-export default function LuoRavintola() {
+export default function LuoRavintola(props) {
     const [RavintolanNimi, setRavintolanNimi] = useState(""); 
     const [Hintataso, setHintataso] = useState ("");
     const [RavintolanOsoite, setRavintolanOsoite] = useState ("");
@@ -11,8 +11,8 @@ export default function LuoRavintola() {
     const [KuvaRavintolasta, setKuvaRavintolasta] = useState ("");
     const [RavintolanTyyppi, setRavintolanTyyppi] = useState ("");
 
-    const LuoRavintolasi = async() => {
-        await axios.post('http://localhost:3000/Ravintolat', {
+    const LuoRavintolasi = async() => {                           //tämä luo ravintolan ja lisää sen käyttäjälle, pitää vielä tehdä rajoitin että vain yhden                                                     
+        await axios.post('http://localhost:3000/Ravintolat', {    //ravintolan voi tehdä yhdelle käyttäjälle
           Nimi: RavintolanNimi,
           Hintataso: Hintataso,
           Osoite: RavintolanOsoite,
@@ -20,8 +20,14 @@ export default function LuoRavintola() {
           Sulkemisaika: Sulkemisaika,
           RavintolanTyyppi: RavintolanTyyppi,
           KuvaRavintolasta: KuvaRavintolasta,
-        })
-}
+        }  ).then (response => { var ravintolaID = response.data.insertId; 
+          console.log (ravintolaID)
+          console.log(props.KirjautunutKayttajaID)
+        axios.put('http://localhost:3000/Kayttaja',{
+        Ravintola_idRavintola: ravintolaID,
+        idKayttaja: props.KirjautunutKayttajaID} )})
+    }
+
         return(
 
             <div className="LuoRavintolaNakyma"> {/*luo laatikon, jonka sisään haluan tekstin*/}

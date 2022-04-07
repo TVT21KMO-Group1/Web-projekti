@@ -179,7 +179,7 @@ if(KirjautunutKayttaja == ""){
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin}/>}/>
-        <Route path = "LuoRavintola" element = { <LuoRavintola /> } />
+        <Route path = "LuoRavintola" element = { <LuoRavintola KirjautunutKayttajaID={KirjautunutKayttajaID} /> } />
         <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria/>} />
       </Routes>

@@ -39,11 +39,12 @@ router.get('/', (req, res) => {                                 //Tämä tötter
  })
 
  router.post('/', (req, res) => {                            //lisää käyttäjä
-    Ravintolat.add(req.body,function(err,count){
+    Ravintolat.add(req.body,function(err,dbResult){
         if (err){
             res.json(err);
         }else {
-            res.sendStatus(201);
+            res.send(dbResult);
+            //res.sendStatus(201);
         }
         
     })
