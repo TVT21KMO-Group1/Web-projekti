@@ -28,16 +28,6 @@ const [tilausHistoria, setTilausHistoria] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([]);
 
-useEffect(() => {
-  const getData = async () => {
-  const results = await axios.get('http://localhost:3000/tilaushistoria/'+KirjautunutKayttajaID+'')
-    console.log(results.data);
-  setTilausHistoria(results.data);
-  }
-  getData();
-}, []);
-
-
 const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka) => {
     
   let newProducts = [...ostosTaulu, { 
@@ -152,6 +142,7 @@ if(KirjautunutKayttaja == ""){
       NaytaTilausHistoria = <div>tilaushistoria</div>
       KirjauduUlos1 = <div>Kirjaudu Ulos</div>
     }else{
+    NaytaLisaaRavintola = <div></div>
     NaytaOstoskori = <div>ostoskori</div>
     NaytaTilausHistoria = <div>tilaushistoria</div>
     KirjauduUlos1 = <div>Kirjaudu Ulos</div>
@@ -165,7 +156,7 @@ if(KirjautunutKayttaja == ""){
       <div className='MenuPalkki'>
         <Link to='/'><div>Etusivulle</div></Link>
         <Link to ='Loginsivu'><div>{KirjauduSisaan} </div></Link>
-        <Link to ='LuoRavintola'><div>Luo ravintola</div></Link>
+
         <Link to ='Ostoskori'><div>{NaytaOstoskori}</div></Link>
         <Link to ='LuoRavintola'><div>{NaytaLisaaRavintola}</div> </Link>
         <Link to ='TilausHistoria'><div>{NaytaTilausHistoria}</div></Link>

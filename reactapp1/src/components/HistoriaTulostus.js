@@ -4,6 +4,8 @@ import React from "react";
 
 export default function HistoriaTulostus(props){
   return (
+    <div>
+
       <div className='Paalista'>
         <div className="ListaVierekkain"> { props.idtilaus }  </div>
         <div className="ListaVierekkain"> { props.aika }  </div>
@@ -11,5 +13,6 @@ export default function HistoriaTulostus(props){
         <div className="ListaVierekkain"> { props.tuote }  </div>
         <div className="ListaVierekkain"> { props.summa }  </div>
       </div>
+    </div>
   );
 }

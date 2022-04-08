@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 export default function Kirjauduttu(props) {
 
-    console.log(props)
+    //console.log(props)
     
     var KT = props.KirjautunutKayttaja;
 
