@@ -20,12 +20,15 @@ export default function TilausHistoria(props) {
 
   return (
     <div>
-      <div>
-        <div> ID </div>
-        <div> Päivämäärä </div>
-        <div> Ravintola </div>
-        <div> Tuote </div>
-        <div> hinta </div>
+
+      <h1 className='RiviValit3'> Ostoshistoria </h1>
+
+      <div className='OtsikkoTilausHistoria'>
+        <div className='RiviValit1'> ID </div>
+        <div className='RiviValit2'> Päivämäärä </div>
+        <div className='RiviValit3'> Rafla </div>
+        <div className='RiviValit4'> Tuote </div>
+        <div className='RiviValit5'> hinta </div>
       </div>  
 
         <div className="">  
