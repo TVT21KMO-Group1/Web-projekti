@@ -53,7 +53,8 @@ const ostaFunktio = async(kokonaishinta) => {
   await axios.post('http://localhost:3000/tilaus', {
     "Summa": kokonaishinta,
     "idKayttaja": KirjautunutKayttajaID,      // Käyttäjän id pitäisi saada jostain
-    "OstosTaulu" : ostosTaulu
+    "OstosTaulu" : ostosTaulu,
+    // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })
  // let idTilaus = results.data.insertId;
   //tuotteetTietokantaan(idTilaus);

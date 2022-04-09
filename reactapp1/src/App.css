@@ -135,13 +135,38 @@
 }
 .ListaVierekkain{
   
-  margin: 5px;
+  margin-left: 30px;
   padding: 10p;
   display: flex;
   flex-direction: column;
+  
 }
 .Paalista{
   display: flex;
   flex-direction: row;
   justify-content: left;
+  grid-template-columns: 25% 25% 25% 25%  ;
+  margin-left: 30px;
+  
+}
+.OtsikkoTilausHistoria{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  
+}
+.RiviValit1{
+  margin-left: 60px;
+}
+.RiviValit2{
+  margin-left: 41px;
+}
+.RiviValit3{
+  margin-left: 160px;
+}
+.RiviValit4{
+  margin-left: 30px;
+}
+.RiviValit5{
+  margin-left: 40px;
 }

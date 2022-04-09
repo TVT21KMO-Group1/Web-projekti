@@ -14,7 +14,6 @@ export default function (props) {
     <div>
         <div className="RavintolaSivuIso">
        
-
             <div className="RavintolaSivu"> {props.RavintolanRuuat.Tuote}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Kuvaus}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Hinta}</div> 
