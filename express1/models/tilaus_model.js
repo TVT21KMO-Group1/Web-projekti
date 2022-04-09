@@ -9,7 +9,7 @@ const tilaus ={
       console.log(tilaus.Summa)
       console.log(tilaus.idKayttaja)
       
-      return db.query('call webdatabase.OstaTuote(?,?,?)',
+      return db.query('call jyznq86kdd1xhcew.OstaTuote(?,?,?)',
       [tilaus.Summa, tilaus.idKayttaja, testi], callback);
     },
 
