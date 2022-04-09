@@ -13,7 +13,8 @@ export default function (props) {
   return (
     <div>
         <div className="RavintolaSivuIso">
-       
+
+            <img src={ props.RavintolanRuuat.Kuva } alt="Kuvan lataus epäonnistui" className="RavintolaSivu" />
             <div className="RavintolaSivu"> {props.RavintolanRuuat.Tuote}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Kuvaus}</div>
             <div className="RavintolaSivu">{props.RavintolanRuuat.Hinta}</div> 

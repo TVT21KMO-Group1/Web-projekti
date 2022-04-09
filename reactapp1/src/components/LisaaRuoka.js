@@ -1,13 +1,16 @@
 import React from 'react';
 import {useState} from 'react';
-import axios from 'axios';
 
 export default function LisaaRuoka(props) {
     const [tuote, setTuote] = useState("");
     const [kuvaus, setKuvaus] = useState("");
     const [hinta, setHinta] = useState("");
     const [kategoria, setKategoria] = useState("");
-    const [kuva, setKuva] = useState("");
+    const [kuva, setKuva] = useState(null);
+
+    const onPictureChange = e => {
+        setKuva(e.target.files[0]);
+    }
 
     return(
         <div className="flex">
@@ -24,9 +27,9 @@ export default function LisaaRuoka(props) {
                 <input type="text" placeholder="Kategoria" value={ kategoria } onInput={e => setKategoria(e.target.value)}/>
             </div>
             <div className="flex column">Kuva
-                <input type="text" placeholder="Kuva" value={ kuva } onInput={e => setKuva(e.target.value)}/>
+                <input type="file" onChange={ onPictureChange }/>
             </div>
-            <button onClick={ () => props.onAddClick({ tuote, kuvaus, hinta, kategoria }) }>Lisää</button>
+            <button onClick={ () => props.onAddClick({ tuote, kuvaus, hinta, kategoria, kuva }) }>Lisää ruoka</button>
         </div>
     )
 }

@@ -1,6 +1,10 @@
 const db = require('../lib/db');
 
 const ruoka ={
+  addWithPicture: function(kuva, ruoka, callback) {      // Lisää ruoan ravintolan ruokalistalle, tuotekategorian oltava int -muodossa
+    return db.query('insert into Ruoka (Tuote, Kuvaus, Hinta, Tuotekategoria_idTuotekategoria, Kuva) values(?,?,?,?,?)',
+    [ruoka.tuote, ruoka.kuvaus, ruoka.hinta, ruoka.tuotekategoria_idtuotekategoria, kuva], callback);
+  },
   add: function(ruoka, callback) {      // Lisää ruoan ravintolan ruokalistalle, tuotekategorian oltava int -muodossa
     return db.query('insert into Ruoka (Tuote, Kuvaus, Hinta, Tuotekategoria_idTuotekategoria) values(?,?,?,?)',
     [ruoka.tuote, ruoka.kuvaus, ruoka.hinta, ruoka.tuotekategoria_idtuotekategoria], callback);
