@@ -52,7 +52,7 @@ const ostaFunktio = async(kokonaishinta) => {
   //kun ostoskorissa painetaan osta-nappulaa
   await axios.post('http://localhost:3000/tilaus', {
     "Summa": kokonaishinta,
-    "idKayttaja": KirjautunutKayttajaID,      // Käyttäjän id pitäisi saada jostain
+    "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
     // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })

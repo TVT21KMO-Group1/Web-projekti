@@ -91,19 +91,31 @@ var ValittuRavintola1 = props.ValittuRavintola
         }
       }
 
-      const lisaaRuoka = async(ruoka, idKategoria) => {       //Lisää ruoan tietokantaan
-        await axios.post('http://localhost:3000/ruoka', {
-          tuote: ruoka.tuote,
-          kuvaus: ruoka.kuvaus,
-          hinta: ruoka.hinta,
-          tuotekategoria_idtuotekategoria: idKategoria
-        })
-        props.setRavintolanRuuat ([...props.RavintolanRuuat, {    //Tämä päivittää näytölle kategoriat ja ruuat
-          tuote: ruoka.tuote,
-          kuvaus: ruoka.kuvaus,
-          hinta: ruoka.hinta,
-          tuotekategoria_idtuotekategoria: idKategoria}]);
-      };
+  const lisaaRuoka = async(ruoka, idKategoria) => {       //Lisää ruoan tietokantaan
+    if(ruoka.kuva !== null){
+      const formData = new formData();
+      formData.append('tuote', ruoka.tuote);
+      formData.append('kuvaus', ruoka.kuvaus);
+      formData.append('hinta', ruoka.hinta);
+      formData.append('tuotekategoria_idTuotekategoria', idKategoria);
+      formData.append('image', ruoka.kuva);
+      const config = {
+        headers : { 'content-type': 'multipart/form-data' }
+      }
+      await axios.post('http://localhost:3000/ruoka/kuva', formData, config);
+    }else{
+      await axios.post('http://localhost:3000/ruoka', {
+      tuote: ruoka.tuote,
+      kuvaus: ruoka.kuvaus,
+      hinta: ruoka.hinta,
+      tuotekategoria_idtuotekategoria: idKategoria
+    })}
+    props.setRavintolanRuuat ([...props.RavintolanRuuat, {    //Tämä päivittää näytölle kategoriat ja ruuat
+      tuote: ruoka.tuote,
+      kuvaus: ruoka.kuvaus,
+      hinta: ruoka.hinta,
+      tuotekategoria_idtuotekategoria: idKategoria}]);
+    };
 
   let naytaLisaaRuoka;
   if(props.onOmistaja === true){
