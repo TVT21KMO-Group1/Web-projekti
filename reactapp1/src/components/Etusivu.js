@@ -27,7 +27,7 @@ const filterProducts = (products2, query) => {                      //filterprod
 };
 
 const filteredProducts = filterProducts(ravintolat, searchQuery);
-var ValittuRavintola2 = props.valittuRavintola;
+//var ValittuRavintola2 = props.valittuRavintola;
 
 useEffect(() => {
   if(props.onOmistaja === true){
@@ -36,6 +36,7 @@ useEffect(() => {
         console.log(response.data);
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
+        
       })
     }
     getData();
@@ -75,6 +76,8 @@ haeRavintolanData(props);
 
 }, []);
 */
+
+
   return (
     <div>    
           

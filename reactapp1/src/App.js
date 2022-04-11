@@ -54,6 +54,7 @@ const ostaFunktio = async(kokonaishinta) => {
     "Summa": kokonaishinta,
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
+    "idRavintola": ValittuRavintola
     // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })
  // let idTilaus = results.data.insertId;
@@ -150,7 +151,7 @@ if(KirjautunutKayttaja == ""){
 
   }}
 
-  
+ // console.log("valittu ravintola app.js", ValittuRavintola)  
   return (
     <BrowserRouter> 
     <div> 
@@ -164,7 +165,7 @@ if(KirjautunutKayttaja == ""){
         <Link to ='KirjauduUlos'><div>{KirjauduUlos1}</div></Link>
       </div>
       <Routes>
-        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
+        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
