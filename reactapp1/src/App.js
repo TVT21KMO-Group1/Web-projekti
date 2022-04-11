@@ -57,6 +57,7 @@ const ostaFunktio = async(kokonaishinta) => {
     "idRavintola": ValittuRavintola
     // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })
+  
  // let idTilaus = results.data.insertId;
   //tuotteetTietokantaan(idTilaus);
 }
@@ -151,7 +152,7 @@ if(KirjautunutKayttaja == ""){
 
   }}
 
- // console.log("valittu ravintola app.js", ValittuRavintola)  
+ console.log("valittu ravintola app.js", ValittuRavintola)  
   return (
     <BrowserRouter> 
     <div> 
