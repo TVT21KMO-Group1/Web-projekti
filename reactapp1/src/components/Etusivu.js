@@ -27,22 +27,23 @@ const filterProducts = (products2, query) => {                      //filterprod
 };
 
 const filteredProducts = filterProducts(ravintolat, searchQuery);
-var ValittuRavintola2 = props.valittuRavintola;
+//var ValittuRavintola2 = props.valittuRavintola;
 
 useEffect(() => {
   if(props.onOmistaja === true){
     const getData =  async () => { // tan voisi nimeta uudelleen
-      axios.get('http://localhost:3000/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
+      axios.get('http://localhost:3306/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
         console.log(response.data);
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
+        
       })
     }
     getData();
   }
   else{
     const getData =  async () => { // tan voisi nimeta uudelleen
-      axios.get('http://localhost:3000/Ravintolat').then(response => {
+      axios.get('http://localhost:3306/Ravintolat').then(response => {
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
       })
@@ -75,6 +76,8 @@ haeRavintolanData(props);
 
 }, []);
 */
+
+
   return (
     <div>    
           

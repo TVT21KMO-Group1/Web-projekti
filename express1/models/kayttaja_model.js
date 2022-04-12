@@ -14,7 +14,7 @@ const Kayttaja={
   },
 
   getAll: function(callback) {
-      return db.query('select * from webdatabase.Kayttaja', callback);
+      return db.query('select * from Kayttaja', callback);
   },
 
   get: function(KayttajaTunnus, callback) {

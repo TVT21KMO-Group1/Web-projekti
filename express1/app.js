@@ -11,9 +11,9 @@ const helmet = require('helmet');
 const cors = require('cors');
 //var app = express();
 var bodyParser = require('body-parser');
-const port = 3000
+const port = 3306
 const app           = express(),  
-      DEFAULT_PORT  = 3000
+      DEFAULT_PORT  = 3306
 
 
       

@@ -50,12 +50,14 @@ const poistaOstoskorista = (item) => {
 
 const ostaFunktio = async(kokonaishinta) => { 
   //kun ostoskorissa painetaan osta-nappulaa
-  await axios.post('http://localhost:3000/tilaus', {
+  await axios.post('http://localhost:3306/tilaus', {
     "Summa": kokonaishinta,
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
+    "idRavintola": ValittuRavintola
     // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })
+  
  // let idTilaus = results.data.insertId;
   //tuotteetTietokantaan(idTilaus);
 }
@@ -70,7 +72,7 @@ const tuotteetTietokantaan = async(idTilaus) => {
   })}
 }*/
 const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
-   await axios.get('http://localhost:3000/Kayttaja/'+KayttajaTunnus+'').then(response => {
+   await axios.get('http://localhost:3306/Kayttaja/'+KayttajaTunnus+'').then(response => {
         setKirjautunutKayttajaID(response.data[0].idKayttaja);
       })
 }
@@ -78,7 +80,7 @@ const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
-   axios.post('http://localhost:3000/login/', {
+   axios.post('http://localhost:3306/login/', {
     "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
   }).then(response => {
@@ -112,7 +114,7 @@ setValittuRavintola(idRavintola);
 
 const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, KayttajaTunnus) => {
 
-  axios.post('http://localhost:3000/kayttaja/', {
+  axios.post('http://localhost:3306/kayttaja/', {
    
    "Nimi": Nimi,
    "Osoite": Osoite,
@@ -150,7 +152,7 @@ if(KirjautunutKayttaja == ""){
 
   }}
 
-  
+ console.log("valittu ravintola app.js", ValittuRavintola)  
   return (
     <BrowserRouter> 
     <div> 
@@ -164,7 +166,7 @@ if(KirjautunutKayttaja == ""){
         <Link to ='KirjauduUlos'><div>{KirjauduUlos1}</div></Link>
       </div>
       <Routes>
-        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio}/> } />
+        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
