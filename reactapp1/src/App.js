@@ -21,6 +21,7 @@ const [onOmistaja, setOnOmistaja] = useState([false]);
 const [isLoadingKirjaudu, setLoadingKirjaudu] = useState([false]);
 const [isLoadingRuoka, setLoadingRuoka] = useState([false]);
 const [ValittuRavintola, setValittuRavintola] = useState([]);
+const [LukittuRavintola, setLukittuRavintola] = useState([])
 const [RavintolanData, setRavintolanData] = useState([]);
 const [Tuotekategoriat, setTuotekategoriat] = useState([]);
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
@@ -28,7 +29,7 @@ const [tilausHistoria, setTilausHistoria] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([]);
 
-const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka) => {
+const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka, ValittuRavintola) => {
     
   let newProducts = [...ostosTaulu, { 
     idRuokaOstoskori: ostosTaulu.length + 1,
@@ -38,7 +39,7 @@ const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka) => {
     Hinta : Hinta
     }];
    setOstosTaulu(newProducts); 
-
+     setLukittuRavintola(ValittuRavintola);
 }
 
 const poistaOstoskorista = (item) => {
@@ -46,6 +47,11 @@ const poistaOstoskorista = (item) => {
   let deletedItemIndex = newProducts.findIndex(p=> p.idRuokaOstoskori === item.idRuokaOstoskori);
   newProducts.splice(deletedItemIndex, 1);
   setOstosTaulu(newProducts);
+    if (ostosTaulu.length === 1) {
+      setLukittuRavintola(0);
+      console.log ("Lukitus  pois")
+    }
+  
   }
 
 const ostaFunktio = async(kokonaishinta) => { 
@@ -152,7 +158,7 @@ if(KirjautunutKayttaja == ""){
 
   }}
 
- console.log("valittu ravintola app.js", ValittuRavintola)  
+ //console.log("valittu ravintola app.js", ValittuRavintola)  
   return (
     <BrowserRouter> 
     <div> 
@@ -170,7 +176,7 @@ if(KirjautunutKayttaja == ""){
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja}/>}/>
-        <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin}/>}/>
+        <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin} LukittuRavintola={LukittuRavintola}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola KirjautunutKayttajaID={KirjautunutKayttajaID} /> } />
         <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria tilausHistoria = {tilausHistoria} KirjautunutKayttajaID={KirjautunutKayttajaID}/>} />

@@ -26,7 +26,7 @@ const  [ValittuKategoria, setValittuKategoria] = useState([]); /// tama pitaa vi
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
 var ValittuRavintola1 = props.ValittuRavintola
 
-      useEffect(() => {                                                   //Hakee ravintolan datan
+      useEffect(() => {                                                   //Hakee ravintolan datan idlla
         const haeRavintolanData = async (props) => {
         const results = await axios.get('http://localhost:3306/Ravintolat/'+ValittuRavintola1+'')
         props.setRavintolanData(results.data)
@@ -39,7 +39,6 @@ var ValittuRavintola1 = props.ValittuRavintola
         const haeKategoriat = async (props) => {
         const results = await axios.get('http://localhost:3306/Tuotekategoria/'+ValittuRavintola1+'/')
         props.setTuotekategoriat(results.data)
-        console.log(ValittuKategoria)
       }
       haeKategoriat(props);
       
@@ -122,6 +121,11 @@ var ValittuRavintola1 = props.ValittuRavintola
     naytaLisaaRuoka = <LisaaRuoka onAddClick={onAddClick} />
   }
 
+  if(ValittuRavintola1 == props.LukittuRavintola || props.LukittuRavintola === 0){
+    console.log("valittu on sama kuin lukittu, osto mahdollista")
+  } else{
+return(<div> Ostoskorissasi on toisen ravintolan tuotteita, sinun tulee poistaa ne ennenkuin voit lisätä tuotteita tasta ravintolasta</div>)  }
+
   return (
     <div>
      <div className="RavintolaSivuIso">
@@ -148,7 +152,7 @@ var ValittuRavintola1 = props.ValittuRavintola
         <div className="RavintolaSivu">Hinta</div>
         <div className="RavintolaSivu"> nappula</div>
         </div>
-        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus onOmistaja={props.onOmistaja} RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin}/>)} </div>
+        <div>{RavintolanRuuat.map(r => <RuokalistaTulostus onOmistaja={props.onOmistaja} RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin} ValittuRavintola={ValittuRavintola1}/>)} </div>
 
     {naytaLisaaRuoka}
     
