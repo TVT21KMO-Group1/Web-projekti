@@ -95,6 +95,7 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
       setOnOmistaja(false);
       setLoadingKirjaudu(false);
       haeKirjautunutKayttaja(KayttajaTunnus);
+      setLukittuRavintola(0);
 
       
     } else if (response.data == "OnOmistaja"){
