@@ -29,6 +29,9 @@ const [tilausHistoria, setTilausHistoria] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([]);
 
+//console.log("Kirjautunut käyttäjä = ",KirjautunutKayttaja)
+//console.log("Kirjautunut käyttäjäID = ",KirjautunutKayttajaID)
+
 const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka, ValittuRavintola) => {
     
   let newProducts = [...ostosTaulu, { 
@@ -61,7 +64,6 @@ const ostaFunktio = async(kokonaishinta) => {
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
     "idRavintola": ValittuRavintola
-    // tarvii lisätä toiminto yhden ravintolan määrittmiseen.
   })
   
  // let idTilaus = results.data.insertId;
@@ -170,7 +172,7 @@ if(KirjautunutKayttaja == ""){
         <Link to ='Ostoskori'><div>{NaytaOstoskori}</div></Link>
         <Link to ='LuoRavintola'><div>{NaytaLisaaRavintola}</div> </Link>
         <Link to ='TilausHistoria'><div>{NaytaTilausHistoria}</div></Link>
-        <Link to ='KirjauduUlos'><div>{KirjauduUlos1}</div></Link>
+        <Link to ='KirjauduUlos'><div>{KirjauduUlos1} </div></Link>
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
