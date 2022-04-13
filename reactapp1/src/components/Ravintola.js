@@ -122,10 +122,13 @@ var ValittuRavintola1 = 0;
     naytaLisaaRuoka = <LisaaRuoka onAddClick={onAddClick} />
   }
 
-  if(ValittuRavintola1 == props.LukittuRavintola || props.LukittuRavintola === 0 ){
+  if(ValittuRavintola1 == props.LukittuRavintola || props.LukittuRavintola === 0 || props.LukittuRavintola == "" ){
    // console.log("valittu on sama kuin lukittu, osto mahdollista")
 
   } else{
+   // console.log("ravintolat ei täsmää")
+   // console.log("valitturavintola ", ValittuRavintola1)
+   // console.log("props.lukitturavintola ", props.LukittuRavintola)
 return(<div> Ostoskorissasi on toisen ravintolan tuotteita, sinun tulee poistaa ne ennenkuin voit lisätä tuotteita tasta ravintolasta</div>)  }
 
   return (
