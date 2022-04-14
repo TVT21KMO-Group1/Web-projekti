@@ -24,7 +24,8 @@ export default function Ravintola (props) {
 //var HaeKaikkiRuuat = 0;   // talla jos 0 niin hakee vain tietyt ruuat kategorian valinnalla, ja jos 1 niin hakee kaikki ravintolan ruuat
 const  [ValittuKategoria, setValittuKategoria] = useState([]); /// tama pitaa viela muuttaa muuttumaan kun valitsee kategorian
 const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
-var ValittuRavintola1 = props.ValittuRavintola
+var ValittuRavintola1 = 0;
+ ValittuRavintola1 = props.ValittuRavintola
 
       useEffect(() => {                                                   //Hakee ravintolan datan idlla
         const haeRavintolanData = async (props) => {
@@ -121,9 +122,13 @@ var ValittuRavintola1 = props.ValittuRavintola
     naytaLisaaRuoka = <LisaaRuoka onAddClick={onAddClick} />
   }
 
-  if(ValittuRavintola1 == props.LukittuRavintola || props.LukittuRavintola === 0){
-    console.log("valittu on sama kuin lukittu, osto mahdollista")
+  if(ValittuRavintola1 == props.LukittuRavintola || props.LukittuRavintola === 0 || props.LukittuRavintola == "" ){
+   // console.log("valittu on sama kuin lukittu, osto mahdollista")
+
   } else{
+   // console.log("ravintolat ei täsmää")
+   // console.log("valitturavintola ", ValittuRavintola1)
+   // console.log("props.lukitturavintola ", props.LukittuRavintola)
 return(<div> Ostoskorissasi on toisen ravintolan tuotteita, sinun tulee poistaa ne ennenkuin voit lisätä tuotteita tasta ravintolasta</div>)  }
 
   return (

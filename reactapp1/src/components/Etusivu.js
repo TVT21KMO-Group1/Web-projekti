@@ -77,7 +77,6 @@ haeRavintolanData(props);
 }, []);
 */
 
-
   return (
     <div>    
           

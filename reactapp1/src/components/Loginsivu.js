@@ -45,7 +45,13 @@ export default function LoginSivu(props) {
   const handleChange = () => {
     setChecked(!checked);
   };*/
-    
+
+  /*
+    const kirjaudu = () =>{
+      props.KirjauduSisaanFunktio(KayttajaTunnus, Salasana)
+     return ( <Link to = '/Kirjauduttu'>   </Link>)
+      
+    }  */
 
   return (
    
@@ -58,9 +64,11 @@ export default function LoginSivu(props) {
           <div> <input type="text"  value={ KayttajaTunnus } onChange={ handleKayttajaTunnusChange }/></div>  
 
           <div>Salasana </div> 
-          <div> <input type="text" value={ Salasana } onChange={ handleSaldoChange } /></div> 
-          <Link to = '/Kirjauduttu'> <button onClick={ () => props.KirjauduSisaanFunktio(KayttajaTunnus, Salasana)  }>Kirjaudu sisaan</button></Link>
-          
+          <div> <input type="password" value={ Salasana } onChange={ handleSaldoChange } /></div> 
+       <Link to = '/Kirjauduttu'> <button onClick={ () => props.KirjauduSisaanFunktio(KayttajaTunnus, Salasana)  }>Kirjaudu sisaan</button></Link>
+           {/*  
+            <button onClick={ () => kirjaudu }>Kirjaudu sisaan</button>
+   */}
       </div>
       <div className="LoginSivu">
           <h1> Luo käyttäjätunnus</h1>
@@ -78,7 +86,7 @@ export default function LoginSivu(props) {
           <div> <input type="text" value={PuhNro} onChange={handleLisaaPuhNro}/></div> 
 
           <div> Salasana </div> 
-          <div> <input type="text" value={Salasana2} onChange={handleLisaaSalasana}/></div>  
+          <div> <input type="password" value={Salasana2} onChange={handleLisaaSalasana}/></div>  
 
           <div> Oletko omistaja 
            <input type="checkbox"  value={onOmistaja} onChange={handleSetOnOmistaja}/></div>

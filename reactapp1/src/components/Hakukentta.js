@@ -4,7 +4,7 @@ const Hakukentta = ({ searchQuery, setSearchQuery }) => (
     <> {/*tama lisatty jotta hakukentta ei lataa sivua uudelleen, ei toimi*/}
    <form>
         <label htmlFor="header-search">
-            <span className="visually-hidden">Etsi tuotteista</span>
+            <span className="visually-hidden">Etsi ravinteli  </span>
         </label>
         <input
             value={searchQuery}            
@@ -14,7 +14,7 @@ const Hakukentta = ({ searchQuery, setSearchQuery }) => (
             placeholder="Tuotteen nimi"
             name="s" 
         />
-        <button type="submit" >Search</button>
+      {/*  <button type="submit" >Search</button> */}
         </form>
 </>
 );
