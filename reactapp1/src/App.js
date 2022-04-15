@@ -59,7 +59,7 @@ const poistaOstoskorista = (item) => {
 
 const ostaFunktio = async(kokonaishinta) => { 
   //kun ostoskorissa painetaan osta-nappulaa
-  await axios.post('/tilaus', {
+  await axios.post('http://localhost:3306/tilaus', {
     "Summa": kokonaishinta,
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
@@ -80,7 +80,7 @@ const tuotteetTietokantaan = async(idTilaus) => {
   })}
 }*/
 const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
-   await axios.get('/Kayttaja/'+KayttajaTunnus+'').then(response => {
+   await axios.get('http://localhost:3306/Kayttaja/'+KayttajaTunnus+'').then(response => {
         setKirjautunutKayttajaID(response.data[0].idKayttaja);
       })
 }
@@ -88,7 +88,7 @@ const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
-   axios.post('/login/', {
+   axios.post('http://localhost:3306/login/', {
     "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
   }).then(response => {
@@ -115,7 +115,7 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
     })
 }
 
-
+console.log('appjss', ValittuRavintola)
 const ValitseRavintolaFunktio = (idRavintola) => {
 setValittuRavintola(idRavintola);
 }
@@ -150,7 +150,7 @@ if(KirjautunutKayttaja == ""){
   }else {
     if(onOmistaja == true){
       NaytaLisaaRavintola = <div>Luo Ravintola</div>
-      NaytaTilausHistoria = <div>tilaushistoria</div>
+      
       KirjauduUlos1 = <div>Kirjaudu Ulos</div>
     }else{
     NaytaLisaaRavintola = <div></div>
@@ -177,11 +177,11 @@ if(KirjautunutKayttaja == ""){
         <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
-        <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja} setLukittuRavintola={setLukittuRavintola}/>}/>
+        <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja} setLukittuRavintola={setLukittuRavintola} setKirjautunutKayttajaID={setKirjautunutKayttajaID}/>}/>
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin} LukittuRavintola={LukittuRavintola}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola KirjautunutKayttajaID={KirjautunutKayttajaID} /> } />
         <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
-        <Route path = "TilausHistoria" element = { <TilausHistoria tilausHistoria = {tilausHistoria} KirjautunutKayttajaID={KirjautunutKayttajaID}/>} />
+        <Route path = "TilausHistoria" element = { <TilausHistoria tilausHistoria = {tilausHistoria} KirjautunutKayttajaID={KirjautunutKayttajaID} onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola}/>} />
       </Routes>
 
     </div>

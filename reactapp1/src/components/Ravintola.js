@@ -6,6 +6,7 @@ import axios from 'axios';
 import Tuotekategoriat from './Tuotekategoriat'
 import {Link } from 'react-router-dom'
 import RuokalistaTulostus from './RuokalistaTulostus';
+import TilausHistoria from './TilausHistoria'
 
 
 export default function Ravintola (props) {
@@ -29,7 +30,7 @@ var ValittuRavintola1 = 0;
 
       useEffect(() => {                                                   //Hakee ravintolan datan idlla
         const haeRavintolanData = async (props) => {
-        const results = await axios.get('/Ravintolat/'+ValittuRavintola1+'')
+        const results = await axios.get('http://localhost:3306/Ravintolat/'+ValittuRavintola1+'')
         props.setRavintolanData(results.data)
         }  
       haeRavintolanData(props);
@@ -38,7 +39,7 @@ var ValittuRavintola1 = 0;
 
       useEffect(() => {                                                   // tällä haetaan kaikki kategoriat ravintolasta idnumerolla
         const haeKategoriat = async (props) => {
-        const results = await axios.get('/Tuotekategoria/'+ValittuRavintola1+'/')
+        const results = await axios.get('http://localhost:3306/Tuotekategoria/'+ValittuRavintola1+'/')
         props.setTuotekategoriat(results.data)
       }
       haeKategoriat(props);
@@ -47,7 +48,7 @@ var ValittuRavintola1 = 0;
 
       useEffect(() => {                                                   // Ravintolan ruokien haku
         const haeRavintolanRuuat = async (props) => {
-            const results = await axios.get('/ruoka/'+ValittuRavintola1+'')
+            const results = await axios.get('http://localhost:3306/ruoka/'+ValittuRavintola1+'')
             setRavintolanRuuat(results.data)
           }
         haeRavintolanRuuat(props);
@@ -55,7 +56,7 @@ var ValittuRavintola1 = 0;
 
        useEffect(() => {                                                   // Ravintolan tietyn kategorian ruokien haku
         const haeRavintolanRuuat = async (props) => {
-        const results = await axios.get('/ruoka/'+ValittuRavintola1+'/'+ValittuKategoria+'')
+        const results = await axios.get('http://localhost:3306/ruoka/'+ValittuRavintola1+'/'+ValittuKategoria+'')
         setRavintolanRuuat(results.data)
         } 
       haeRavintolanRuuat(props);
@@ -71,7 +72,7 @@ var ValittuRavintola1 = 0;
       }
  
       const lisaaKategoria = async(ruoka) => {        //Lisää uuden tuotekategorian
-        let kategoria = await axios.post('/tuotekategoria', {
+        let kategoria = await axios.post('http://localhost:3306/tuotekategoria', {
           tuotekategoria: ruoka.kategoria,
           Ravintola_idRavintola: ValittuRavintola1
       })
@@ -93,7 +94,9 @@ var ValittuRavintola1 = 0;
 
   const lisaaRuoka = async(ruoka, idKategoria) => {       //Lisää ruoan tietokantaan
     if(ruoka.kuva !== null){
-      const formData = new formData();
+      console.log(ruoka.kuva);
+      
+      var formData = new formData();
       formData.append('tuote', ruoka.tuote);
       formData.append('kuvaus', ruoka.kuvaus);
       formData.append('hinta', ruoka.hinta);
@@ -102,6 +105,7 @@ var ValittuRavintola1 = 0;
       const config = {
         headers : { 'content-type': 'multipart/form-data' }
       }
+      console.log(formData);
       await axios.post('/ruoka/kuva', formData, config);
     }else{
       await axios.post('/ruoka', {
@@ -160,6 +164,7 @@ return(<div> Ostoskorissasi on toisen ravintolan tuotteita, sinun tulee poistaa 
         <div>{RavintolanRuuat.map(r => <RuokalistaTulostus onOmistaja={props.onOmistaja} RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin} ValittuRavintola={ValittuRavintola1}/>)} </div>
 
     {naytaLisaaRuoka}
+    <Link to ='/TilausHistoria' ><div> Tilaushistoria</div></Link>
     
     </div>   
     </div> 

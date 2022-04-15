@@ -32,7 +32,7 @@ const filteredProducts = filterProducts(ravintolat, searchQuery);
 useEffect(() => {
   if(props.onOmistaja === true){
     const getData =  async () => { // tan voisi nimeta uudelleen
-      axios.get('/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
+      axios.get('http://localhost:3306/Ravintolat/owner/'+KirjautunutKayttaja+'/').then(response => {
         console.log(response.data);
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
@@ -43,7 +43,7 @@ useEffect(() => {
   }
   else{
     const getData =  async () => { // tan voisi nimeta uudelleen
-      axios.get('/Ravintolat').then(response => {
+      axios.get('http://localhost:3306/Ravintolat').then(response => {
         setRavintolat(response.data);
         setLoadingRavintolat(false);                //Tanne tehty wait funktio
       })

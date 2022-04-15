@@ -13,5 +13,15 @@ router.get('/:idKayttaja', (req, res) => {             //tän tulisi hakea tilau
         })
     });
 
+    router.get('/Ravintola/:idRavintola', (req, res) => {             //tän tulisi hakea tilaukset
+        tilausHistoria.getRavintola(req.params.idRavintola, function(err, dbResult) {
+            if(err) {
+                res.json('errori');
+            } else { 
+                res.send(dbResult); 
+            }
+            })
+        });
+
 
 module.exports = router;
