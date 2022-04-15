@@ -10,7 +10,7 @@ export default function TilausHistoria(props) {
 
   useEffect(() => {
     const haeHistoria = async () => {
-    const results = await axios.get('http://localhost:3306/tilaushistoria/'+props.KirjautunutKayttajaID+'')
+    const results = await axios.get('/tilaushistoria/'+props.KirjautunutKayttajaID+'')
      //console.log(results.data);
     setTilausHistoria(results.data);
     //console.log(KirjautunutKayttajaID);

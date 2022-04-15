@@ -59,7 +59,7 @@ const poistaOstoskorista = (item) => {
 
 const ostaFunktio = async(kokonaishinta) => { 
   //kun ostoskorissa painetaan osta-nappulaa
-  await axios.post('http://localhost:3306/tilaus', {
+  await axios.post('/tilaus', {
     "Summa": kokonaishinta,
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
@@ -80,7 +80,7 @@ const tuotteetTietokantaan = async(idTilaus) => {
   })}
 }*/
 const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
-   await axios.get('http://localhost:3306/Kayttaja/'+KayttajaTunnus+'').then(response => {
+   await axios.get('/Kayttaja/'+KayttajaTunnus+'').then(response => {
         setKirjautunutKayttajaID(response.data[0].idKayttaja);
       })
 }
@@ -88,7 +88,7 @@ const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
 
-   axios.post('http://localhost:3306/login/', {
+   axios.post('/login/', {
     "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
   }).then(response => {
@@ -122,7 +122,7 @@ setValittuRavintola(idRavintola);
 
 const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, KayttajaTunnus) => {
 
-  axios.post('http://localhost:3306/kayttaja/', {
+  axios.post('/kayttaja/', {
    
    "Nimi": Nimi,
    "Osoite": Osoite,
