@@ -52,6 +52,7 @@ export default function LoginSivu(props) {
      return ( <Link to = '/Kirjauduttu'>   </Link>)
       
     }  */
+    console.log (props.kayttajaLuotuOutput)
 
   return (
    
@@ -92,6 +93,8 @@ export default function LoginSivu(props) {
            <input type="checkbox"  value={onOmistaja} onChange={handleSetOnOmistaja}/></div>
 
           <button onClick={ () => props.luoKayttajafunktio(Nimi,Osoite,PuhNro,Salasana2,onOmistaja, KayttajaTunnus2) }>Luo Tunnus</button>
+
+{props.kayttajaLuotuOutput}
 
       </div>
 

@@ -28,6 +28,7 @@ const [RavintolanRuuat, setRavintolanRuuat] = useState([]);
 const [tilausHistoria, setTilausHistoria] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([]);
+const [kayttajaLuotuOutput, setKayttajaLuotuOutput] = useState([]);
 
 //console.log("Kirjautunut käyttäjä = ",KirjautunutKayttaja)
 //console.log("Kirjautunut käyttäjäID = ",KirjautunutKayttajaID)
@@ -132,11 +133,18 @@ const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, Kaytta
    "OnOmistaja": OnOmistaja,
    "KayttajaTunnus": KayttajaTunnus
  }).then(response => {
-    if (response.data === "1048")
-     console.log("Osa tiedoista puuttuu")
-    else{
+   console.log(response.data)
+   if (response.data === 1048)
+   {console.log("Osa tiedoista puuttuu")}   
+
+     if (response.data === 1062)
+     {setKayttajaLuotuOutput ("Käyttäjä on jo luotu, kokeile toista käyttäjätunnusta")
+    console.log(kayttajaLuotuOutput)}
+
+     else{
       console.log("käyttäjä luotu")
     }
+
    }
  )
 }
@@ -176,7 +184,7 @@ if(KirjautunutKayttaja == ""){
       </div>
       <Routes>
         <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
-        <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio}/>}/>
+        <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio} kayttajaLuotuOutput={kayttajaLuotuOutput}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja} setLukittuRavintola={setLukittuRavintola}/>}/>
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin} LukittuRavintola={LukittuRavintola}/>}/>
