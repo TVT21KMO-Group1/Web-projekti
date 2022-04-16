@@ -92,6 +92,7 @@ const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
     "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
   }).then(response => {
+    console.log(response.data)
     if (response.data == true){
       setKirjautunutKayttaja(KayttajaTunnus);
       setOnOmistaja(false);
