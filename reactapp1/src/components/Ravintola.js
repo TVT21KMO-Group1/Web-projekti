@@ -96,7 +96,7 @@ var ValittuRavintola1 = 0;
     if(ruoka.kuva !== null){
       console.log(ruoka.kuva);
       
-      var formData = new formData();
+      var formData = new FormData();
       formData.append('tuote', ruoka.tuote);
       formData.append('kuvaus', ruoka.kuvaus);
       formData.append('hinta', ruoka.hinta);
@@ -108,7 +108,7 @@ var ValittuRavintola1 = 0;
       console.log(formData);
       await axios.post('/ruoka/kuva', formData, config);
     }else{
-      await axios.post('/ruoka', {
+      await axios.post('http://localhost:3306/ruoka', {
       tuote: ruoka.tuote,
       kuvaus: ruoka.kuvaus,
       hinta: ruoka.hinta,

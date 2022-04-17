@@ -52,7 +52,7 @@ export default function LoginSivu(props) {
      return ( <Link to = '/Kirjauduttu'>   </Link>)
       
     }  */
-    console.log (props.kayttajaLuotuOutput)
+    //console.log (props.kayttajaLuotuOutput)
 
   return (
    
