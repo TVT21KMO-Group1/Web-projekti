@@ -8,8 +8,14 @@ export default function LuoRavintola(props) {
     const [RavintolanOsoite, setRavintolanOsoite] = useState ("");
     const [Aukeamisaika, setAukeamisaika] = useState ("");
     const [Sulkemisaika, setSulkemisaika] = useState ("");
-    const [KuvaRavintolasta, setKuvaRavintolasta] = useState ("");
+    const [KuvaRavintolasta, setKuvaRavintolasta] = useState (null);
     const [RavintolanTyyppi, setRavintolanTyyppi] = useState ("");
+
+
+
+    const LisaaRavintolaKuva = e => {
+      setKuvaRavintolasta(e.target.files[0]);
+  }
 
     const LuoRavintolasi = async() => {                           //tämä luo ravintolan ja lisää sen käyttäjälle, pitää vielä tehdä rajoitin että vain yhden                                                     
         await axios.post('http://localhost:3306/Ravintolat', {    //ravintolan voi tehdä yhdelle käyttäjälle
@@ -39,7 +45,10 @@ export default function LuoRavintola(props) {
             <div>Aukeamisaika <input type="text" value={ Aukeamisaika } onInput={e => setAukeamisaika(e.target.value)}/></div>
             <div>Sulkemisaika <input type="text" value={ Sulkemisaika } onInput={e => setSulkemisaika(e.target.value)}/></div>
             <div>Ravintolan tyyppi <input type="text" value={ RavintolanTyyppi } onInput={e => setRavintolanTyyppi(e.target.value)}/></div>
-            {/*<div>Kuva ravintolasta <input type="text" value={ tuote } onInput={e => setTuote(e.target.value)}/></div>*/}
+            <div>Kuva ravintolasta <input type="file" onChange={LisaaRavintolaKuva} /></div>
+
+
+          
 
             <button onClick={ () => LuoRavintolasi({ RavintolanNimi, Hintataso, RavintolanOsoite, Aukeamisaika, Sulkemisaika, RavintolanTyyppi, KuvaRavintolasta }) }>Luo Ravintola</button>
             
