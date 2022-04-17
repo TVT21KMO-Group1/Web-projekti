@@ -41,6 +41,8 @@ export default function Ostoskori(props) {
 
   }
 */
+var TuotteetOstettu = (<div>{props.TuotteetOstettu}</div>)
+
   return (
 
     <div className="Ostoskori"> Ostoskori
@@ -65,7 +67,7 @@ export default function Ostoskori(props) {
           <div> <input type="text" value={Postitoimipaikka} onChange={handlePostitoimipaikkaChange}/></div> 
     
           <button onClick={ () => props.ostaFunktio(kokonaishinta) }> Osta </button>
-        
+          {TuotteetOstettu}
 
     </div>
   )

@@ -29,11 +29,13 @@ const [tilausHistoria, setTilausHistoria] = useState([]);
         
 const [ostosTaulu, setOstosTaulu] = useState([]);
 const [kayttajaLuotuOutput, setKayttajaLuotuOutput] = useState([]);
+const [TuotteetOstettu, setTuotteetOstettu] = useState([]);
 
 //console.log("Kirjautunut käyttäjä = ",KirjautunutKayttaja)
 //console.log("Kirjautunut käyttäjäID = ",KirjautunutKayttajaID)
 
 const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka, ValittuRavintola) => {
+  setTuotteetOstettu("")
     
   let newProducts = [...ostosTaulu, { 
     idRuokaOstoskori: ostosTaulu.length + 1,
@@ -47,13 +49,14 @@ const lisaaOstoskoriin = (Tuote, Kuvaus, Hinta, idRuoka, ValittuRavintola) => {
 }
 
 const poistaOstoskorista = (item) => {
+  setTuotteetOstettu("")
   let newProducts = [...ostosTaulu];
   let deletedItemIndex = newProducts.findIndex(p=> p.idRuokaOstoskori === item.idRuokaOstoskori);
   newProducts.splice(deletedItemIndex, 1);
   setOstosTaulu(newProducts);
     if (ostosTaulu.length === 1) {
       setLukittuRavintola(0);
-      console.log ("Lukitus  pois")
+     // console.log ("Lukitus  pois")
     }
   
   }
@@ -65,21 +68,17 @@ const ostaFunktio = async(kokonaishinta) => {
     "idKayttaja": KirjautunutKayttajaID,
     "OstosTaulu" : ostosTaulu,
     "idRavintola": ValittuRavintola
+  }).then(response => { 
+    if(response.data.affectedRows > 0) {
+      setTuotteetOstettu("Tuotteet ostettu!!")
+      setOstosTaulu([]);
+    }
   })
   
  // let idTilaus = results.data.insertId;
   //tuotteetTietokantaan(idTilaus);
 }
-/*
-const tuotteetTietokantaan = async(idTilaus) => {
-  for(let i = 0; i<ostosTaulu.length; i++){
-  let idRuoka = ostosTaulu[i].idRuoka;        //pystyisköhän ruuat tallentamaan varchar:ina tietokantaan kaikki yhdelle riville?
-  console.log(idRuoka);
-  await axios.post('http://localhost:3000/tilatuttuotteet', {
-    Tuotteet: idRuoka,
-    Tilaus_idTilaus: idTilaus
-  })}
-}*/
+
 const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
    await axios.get('http://localhost:3306/Kayttaja/'+KayttajaTunnus+'').then(response => {
         setKirjautunutKayttajaID(response.data[0].idKayttaja);
@@ -88,7 +87,7 @@ const haeKirjautunutKayttaja = async(KayttajaTunnus) => {
 
 
 const KirjauduSisaanFunktio = (KayttajaTunnus, Salasana) => {
-
+  setOstosTaulu([]);
    axios.post('http://localhost:3306/login/', {
     "KayttajaTunnus": KayttajaTunnus,
     "Salasana": Salasana
@@ -123,8 +122,8 @@ setValittuRavintola(idRavintola);
 }
 
 const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, KayttajaTunnus) => {
-
-  axios.post('/kayttaja/', {
+  setKayttajaLuotuOutput("");
+  axios.post('http://localhost:3306/kayttaja/', {
    
    "Nimi": Nimi,
    "Osoite": Osoite,
@@ -133,16 +132,18 @@ const luoKayttajafunktio = ( Nimi, Osoite, PuhNro, Salasana2, OnOmistaja, Kaytta
    "OnOmistaja": OnOmistaja,
    "KayttajaTunnus": KayttajaTunnus
  }).then(response => {
-   console.log(response.data)
+  // console.log(response.data)
    if (response.data === 1048)
-   {console.log("Osa tiedoista puuttuu")}   
-
+   {//console.log("Osa tiedoista puuttuu")   
+}
      if (response.data === 1062)
      {setKayttajaLuotuOutput ("Käyttäjä on jo luotu, kokeile toista käyttäjätunnusta")
-    console.log(kayttajaLuotuOutput)}
-
+    //console.log(kayttajaLuotuOutput)
+}
      else{
-      console.log("käyttäjä luotu")
+       setKayttajaLuotuOutput("Kayttajatunnus luotu onnistuneesti")
+
+      //console.log("käyttäjä luotu")
     }
 
    }
@@ -183,13 +184,13 @@ if(KirjautunutKayttaja == ""){
         <Link to ='KirjauduUlos'><div>{KirjauduUlos1} </div></Link>
       </div>
       <Routes>
-        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} /> } />
+        <Route path = "/" element= { <Etusivu onOmistaja={onOmistaja} KirjautunutKayttaja={KirjautunutKayttaja} setRavintolanData={setRavintolanData} ValitseRavintolaFunktio={ValitseRavintolaFunktio} setTuotteetOstettu={setTuotteetOstettu} /> } />
         <Route path = "Loginsivu" element = { <Loginsivu KirjauduSisaanFunktio={KirjauduSisaanFunktio} luoKayttajafunktio={luoKayttajafunktio} kayttajaLuotuOutput={kayttajaLuotuOutput}/>}/>
         <Route path = "Kirjauduttu" element = { <Kirjauduttu KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja}/>}/>
         <Route path = "KirjauduUlos" element = { <KirjauduUlos KirjautunutKayttaja={KirjautunutKayttaja} onOmistaja={onOmistaja} setOnOmistaja={setOnOmistaja} setKirjautunutKayttaja={setKirjautunutKayttaja} setLukittuRavintola={setLukittuRavintola} setKirjautunutKayttajaID={setKirjautunutKayttajaID}/>}/>
         <Route path = "Ravintola" element = { <Ravintola onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola} RavintolanData={RavintolanData} setRavintolanData={setRavintolanData} isLoadingRuoka={isLoadingRuoka} setLoadingRuoka={setLoadingRuoka} Tuotekategoriat={Tuotekategoriat} setTuotekategoriat={setTuotekategoriat} RavintolanRuuat={RavintolanRuuat} setRavintolanRuuat={setRavintolanRuuat} lisaaOstoskoriin={lisaaOstoskoriin} LukittuRavintola={LukittuRavintola}/>}/>
         <Route path = "LuoRavintola" element = { <LuoRavintola KirjautunutKayttajaID={KirjautunutKayttajaID} /> } />
-        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} /> } />
+        <Route path = "Ostoskori" element = { <Ostoskori KirjautunutKayttaja = {KirjautunutKayttaja} ostosTaulu = {ostosTaulu} poistaOstoskorista={poistaOstoskorista} ostaFunktio={ostaFunktio} TuotteetOstettu={TuotteetOstettu}/> } />
         <Route path = "TilausHistoria" element = { <TilausHistoria tilausHistoria = {tilausHistoria} KirjautunutKayttajaID={KirjautunutKayttajaID} onOmistaja={onOmistaja} ValittuRavintola={ValittuRavintola}/>} />
       </Routes>
 
