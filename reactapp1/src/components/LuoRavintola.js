@@ -12,7 +12,7 @@ export default function LuoRavintola(props) {
     const [RavintolanTyyppi, setRavintolanTyyppi] = useState ("");
 
     const LuoRavintolasi = async() => {                           //tämä luo ravintolan ja lisää sen käyttäjälle, pitää vielä tehdä rajoitin että vain yhden                                                     
-        await axios.post('http://localhost:3306/Ravintolat', {    //ravintolan voi tehdä yhdelle käyttäjälle
+        await axios.post('/Ravintolat', {    //ravintolan voi tehdä yhdelle käyttäjälle
           Nimi: RavintolanNimi,
           Hintataso: Hintataso,
           Osoite: RavintolanOsoite,
@@ -23,7 +23,7 @@ export default function LuoRavintola(props) {
         }  ).then (response => { var ravintolaID = response.data.insertId; 
           console.log (ravintolaID)
           console.log(props.KirjautunutKayttajaID)
-        axios.put('http://localhost:3306/Kayttaja',{
+        axios.put('/Kayttaja',{
         Ravintola_idRavintola: ravintolaID,
         idKayttaja: props.KirjautunutKayttajaID} )})
     }

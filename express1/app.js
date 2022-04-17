@@ -9,6 +9,9 @@ var mysql = require('mysql');
 var connection  = require('./lib/db');
 const helmet = require('helmet');
 const cors = require('cors');
+var cloudinary = require('cloudinary').v2;
+var { CloudinaryStorage } = require('multer-storage-cloudinary');
+var multer = require('multer');
 //var app = express();
 var bodyParser = require('body-parser');
 const port = 3306
@@ -24,7 +27,17 @@ dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// Config cloudinary storage for multer-storage-cloudinary
+var storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: ''
+  },
+});
 
+var parser = multer({ storage: storage });
+// You can store key-value pairs in express, here we store the port setting
+app.set('port', (process.env.PORT || 80));
 
 /* //Jotain hamaraa tassa hommelissa, en tieda mita tekee
 const basicAuth = require('express-basic-auth');
@@ -104,6 +117,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// POST route for reciving the uploads. multer-parser will handle the incoming data based on the 'image' key
+// Once multer has completed the upload to cloudinary, it will come to the handling function
+// below, which then sends the 201 (CREATED) response. Notice that error handling has not been properly implemented.
+app.post('/upload', parser.single('image'), function (req, res) {
+  console.log(req.file);
+  res.status(201);
+  res.json(req.file);
+});
+
+
 app.listen(app.get(process.env.PORT ||80), function(){})
 
 module.exports = app;

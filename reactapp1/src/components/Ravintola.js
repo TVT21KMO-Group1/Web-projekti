@@ -6,6 +6,7 @@ import axios from 'axios';
 import Tuotekategoriat from './Tuotekategoriat'
 import {Link } from 'react-router-dom'
 import RuokalistaTulostus from './RuokalistaTulostus';
+import TilausHistoria from './TilausHistoria'
 
 
 export default function Ravintola (props) {
@@ -93,7 +94,9 @@ var ValittuRavintola1 = 0;
 
   const lisaaRuoka = async(ruoka, idKategoria) => {       //Lisää ruoan tietokantaan
     if(ruoka.kuva !== null){
-      const formData = new formData();
+      console.log(ruoka.kuva);
+      
+      var formData = new formData();
       formData.append('tuote', ruoka.tuote);
       formData.append('kuvaus', ruoka.kuvaus);
       formData.append('hinta', ruoka.hinta);
@@ -102,9 +105,10 @@ var ValittuRavintola1 = 0;
       const config = {
         headers : { 'content-type': 'multipart/form-data' }
       }
-      await axios.post('http://localhost:3306/ruoka/kuva', formData, config);
+      console.log(formData);
+      await axios.post('/ruoka/kuva', formData, config);
     }else{
-      await axios.post('http://localhost:3306/ruoka', {
+      await axios.post('/ruoka', {
       tuote: ruoka.tuote,
       kuvaus: ruoka.kuvaus,
       hinta: ruoka.hinta,
@@ -160,6 +164,7 @@ return(<div> Ostoskorissasi on toisen ravintolan tuotteita, sinun tulee poistaa 
         <div>{RavintolanRuuat.map(r => <RuokalistaTulostus onOmistaja={props.onOmistaja} RavintolanRuuat={r} lisaaOstoskoriin ={props.lisaaOstoskoriin} ValittuRavintola={ValittuRavintola1}/>)} </div>
 
     {naytaLisaaRuoka}
+    <Link to ='/TilausHistoria' ><div> Tilaushistoria</div></Link>
     
     </div>   
     </div> 

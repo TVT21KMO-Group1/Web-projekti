@@ -9,13 +9,22 @@ export default function TilausHistoria(props) {
   const [tilausHistoria, setTilausHistoria] = useState([]);
 
   useEffect(() => {
+    if (props.onOmistaja === true){
+      console.log('tilaushistoria', props.ValittuRavintola)
+      const haeHistoria = async () => {
+        const results = await axios.get('http://localhost:3306/tilaushistoria/Ravintola/'+props.ValittuRavintola+'')
+        setTilausHistoria(results.data)
+      }
+      haeHistoria();
+    }else{
+      console.log('tilaushistoria kayttaja')
     const haeHistoria = async () => {
     const results = await axios.get('http://localhost:3306/tilaushistoria/'+props.KirjautunutKayttajaID+'')
-     //console.log(results.data);
+     console.log(results.data);
     setTilausHistoria(results.data);
     //console.log(KirjautunutKayttajaID);
     }
-    haeHistoria();
+    haeHistoria();}
   }, []);
 
   return (
