@@ -41,4 +41,5 @@ Sovelluksen käyttöönotto tapahtuu seuraavasti:
 8.	Sovellus ehdottaa porttia 3001, hyväksy tämä painamalla ”y”.
 9.	Selain käynnistyy ja sovellus on toiminnassa.
 Sovellus löytyy myös osoitteesta
+
 https://web-projekti-group1.herokuapp.com/
